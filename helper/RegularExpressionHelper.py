@@ -1,9 +1,17 @@
 from typing import List, Callable
 
+from helper.ChineseEnglishHelper import change_chinese_punctuation_to_english
 
-def split_to_per_line_one_cite(string: str, ) -> List[str]:
+
+def change_ascii_to_blank(string: str) -> str:
+    string = string.replace(chr(2), " ")
+    return string.strip()
+
+
+def split_to_per_line_one_cite(string: str, ) -> str:
+    string = change_ascii_to_blank(string)
     re_list = []
-    ss = string.strip().split("\n")
+    ss = string.split("\n")
     i_begin = 1
     for s in ss:
         if s.startswith(f"{i_begin} ") or s.startswith(f"[{i_begin}] "):
@@ -11,16 +19,55 @@ def split_to_per_line_one_cite(string: str, ) -> List[str]:
             i_begin += 1
         re_list.append(s)
         re_list.append(" ")
-    return re_list
+    return "".join(re_list).strip()
 
 
-def split_by_sep(string: str, ):
+def split_by_sep(string: str, ) -> str:
+    string = change_chinese_punctuation_to_english(string)
     re_list = []
-    ss = string.strip().replace("；", ";").split(";")
+    ss = []
+    seps = [";", ","]
+    for i in seps:
+        if string.__contains__(i):
+            ss = string.split(i)
+            break
     for s in ss:
         re_list.append(s.strip())
         re_list.append("\n")
-    return re_list
+    return "".join(re_list).strip()
+
+
+def emerge_blank(string: str) -> str:
+    string = string.strip()
+    for i in range(2, 8).__reversed__():
+        string.replace(" " * i, " ")
+    return string.strip()
+
+
+def emerge_lines(string: str) -> str:
+    string = string.replace("\n", " ").strip()
+    string = emerge_blank(string)
+    # 处理来自pdf的麻烦
+    string = string.replace("- ", "")
+    string = string.replace("Fig. ", "Fig.")
+    return string.strip()
+
+
+def emerge_lines_and_split_by_dot(string: str) -> str:
+    string = emerge_lines(string)
+    seps = [".", "。", "！", "!"]
+    for i in seps:
+        string = string.replace(i, f"{i}\n")
+    re_list = []
+    ss = string.split("\n")
+    # 去除换行前后的空格
+    for s in ss:
+        re_list.append(s.strip())
+        re_list.append("\n")
+    string = "".join(re_list)
+    # 处理来自pdf的麻烦
+    string = string.replace("Fig.\n", "Fig.")
+    return string.strip()
 
 
 def test_b1(
