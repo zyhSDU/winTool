@@ -9,8 +9,13 @@ from helper import RegularExpressionHelper
 from ui import main1
 from ui.main1 import Ui_MainWindow
 from helper.LoggingHelper import get_logger2
+from logging import Formatter, Handler, handlers as logging_handlers, Logger
+from helper.FileHelper import create_dir_of_path
 
-log = get_logger2()
+file_name = "app1_logs/log"
+create_dir_of_path(file_name)
+app1_handler = logging_handlers.TimedRotatingFileHandler(file_name, when='D', encoding="utf-8")
+log = get_logger2(handlers=[app1_handler])
 
 
 def paste_to_edit1(ui: main1.Ui_MainWindow):
@@ -25,7 +30,7 @@ def copy_from_edit2(ui: main1.Ui_MainWindow):
 
 def action1(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
-    string = RegularExpressionHelper.split_to_per_line_one_cite(string)
+    string = RegularExpressionHelper.split_to_per_line_one_cite(string, log)
     ui.textEdit_2.setText(string)
 
 
@@ -50,11 +55,11 @@ def action4(ui: main1.Ui_MainWindow):
 def action_wrap_type(ui: main1.Ui_MainWindow, action: Callable[[Ui_MainWindow], None], btn_name: str):
     if ui.checkBox_1.isChecked():
         paste_to_edit1(ui)
-    log.info(f"\n处理前\n{ui.textEdit.toPlainText()}\n")
+    log.info(f"\n处理前\n{ui.textEdit.toPlainText()}")
     action(ui)
     if ui.checkBox_2.isChecked():
         copy_from_edit2(ui)
-    log.info(f"\n处理后\n{ui.textEdit_2.toPlainText()}\n")
+    log.info(f"\n处理后\n{ui.textEdit_2.toPlainText()}")
     assert isinstance(ui.pushButton_action_last, QPushButton)
     ui.pushButton_action_last.clicked.disconnect()
     ui.pushButton_action_last.setText(btn_name)

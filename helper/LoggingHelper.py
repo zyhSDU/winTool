@@ -1,6 +1,6 @@
 # https://blog.csdn.net/claroja/article/details/102601920
 import logging
-from logging import Formatter, Handler, handlers as logging_handlers
+from logging import Formatter, Handler, handlers as logging_handlers, Logger
 from typing import List, Optional
 
 from helper.FileHelper import create_dir_of_path
@@ -29,14 +29,14 @@ def get_logger2(
             '%(asctime)s %(filename)s %(funcName)s [line:%(lineno)d] %(levelname)s %(message)s'
         ),
         handlers: List[Optional[Handler]] = None,
-):
+) -> Logger:
     if handlers is None:
         file_name = 'logs/log'
         create_dir_of_path(file_name)
         handlers = [logging_handlers.TimedRotatingFileHandler(file_name, when='D', encoding="utf-8")]
-        logger = logging.getLogger()
-        logger.setLevel(level)
-        for i in handlers:
-            i.setFormatter(formatter)
-            logger.addHandler(i)
-        return logger
+    logger: Logger = logging.getLogger()
+    logger.setLevel(level)
+    for i in handlers:
+        i.setFormatter(formatter)
+        logger.addHandler(i)
+    return logger

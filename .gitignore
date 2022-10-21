@@ -1,2 +1,4 @@
 /app/app1/
 /logs/
+*.zip
+/app/app1_logs/

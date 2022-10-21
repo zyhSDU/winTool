@@ -1,3 +1,4 @@
+from logging import Logger
 from typing import List, Callable
 
 from helper.ChineseEnglishHelper import change_chinese_punctuation_to_english
@@ -8,11 +9,16 @@ def change_ascii_to_blank(string: str) -> str:
     return string.strip()
 
 
-def split_to_per_line_one_cite(string: str, ) -> str:
+def split_to_per_line_one_cite(string: str, log: Logger) -> str:
     string = change_ascii_to_blank(string)
     re_list = []
     ss = string.split("\n")
-    i_begin = int(string.strip().replace("[", "").replace("]", " ").split(" ")[0].split(".")[0])
+    i_begin = 1
+    try:
+        i_begin = int(string.strip().replace("[", "").replace("]", " ").split(" ")[0].split(".")[0])
+    except BaseException as e:
+        log.info(f"\n{e}")
+
     for s in ss:
         if s.startswith(f"{i_begin} ") or s.startswith(f"[{i_begin}] ") or s.startswith(f"{i_begin}. "):
             re_list.append("\n")
