@@ -8,6 +8,9 @@ from helper import ClipboardHelper
 from helper import RegularExpressionHelper
 from ui import main1
 from ui.main1 import Ui_MainWindow
+from helper.LoggingHelper import get_logger2
+
+log = get_logger2()
 
 
 def paste_to_edit1(ui: main1.Ui_MainWindow):
@@ -47,9 +50,11 @@ def action4(ui: main1.Ui_MainWindow):
 def action_wrap_type(ui: main1.Ui_MainWindow, action: Callable[[Ui_MainWindow], None], btn_name: str):
     if ui.checkBox_1.isChecked():
         paste_to_edit1(ui)
+    log.info(f"\n处理前\n{ui.textEdit.toPlainText()}\n")
     action(ui)
     if ui.checkBox_2.isChecked():
         copy_from_edit2(ui)
+    log.info(f"\n处理后\n{ui.textEdit_2.toPlainText()}\n")
     assert isinstance(ui.pushButton_action_last, QPushButton)
     ui.pushButton_action_last.clicked.disconnect()
     ui.pushButton_action_last.setText(btn_name)
@@ -71,6 +76,7 @@ class MainUI(main1.Ui_MainWindow):
         fun_arg(self, self.pushButton_action3, action3)
         fun_arg(self, self.pushButton_action4, action4)
 
+        self.pushButton_action_last.setText(self.pushButton_action1.text())
         fun_arg(self, self.pushButton_action_last, action1)
 
         self.checkBox_1.setChecked(True)

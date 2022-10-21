@@ -12,9 +12,9 @@ def split_to_per_line_one_cite(string: str, ) -> str:
     string = change_ascii_to_blank(string)
     re_list = []
     ss = string.split("\n")
-    i_begin = 1
+    i_begin = int(string.strip().replace("[", "").replace("]", " ").split(" ")[0].split(".")[0])
     for s in ss:
-        if s.startswith(f"{i_begin} ") or s.startswith(f"[{i_begin}] "):
+        if s.startswith(f"{i_begin} ") or s.startswith(f"[{i_begin}] ") or s.startswith(f"{i_begin}. "):
             re_list.append("\n")
             i_begin += 1
         re_list.append(s)
