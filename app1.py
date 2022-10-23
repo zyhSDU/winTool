@@ -72,42 +72,42 @@ def action6(ui: main1.Ui_MainWindow):
 
 
 def action_remember_setting(ui: main1.Ui_MainWindow):
-    ini.set("checked", "checked1", ui.checkBox_1.isChecked().__int__())
-    ini.set("checked", "checked2", ui.checkBox_2.isChecked().__int__())
-    ini.set("checked", "checked3", ui.checkBox_3.isChecked().__int__())
+    ini.set("checked", "checked1", ui.checkBox_1.isChecked().__int__().__str__())
+    ini.set("checked", "checked2", ui.checkBox_2.isChecked().__int__().__str__())
+    ini.set("checked", "checked3", ui.checkBox_3.isChecked().__int__().__str__())
     ini.write_back_to_read_file()
 
 
 def action_wrap_type(ui: main1.Ui_MainWindow, action: Callable[[Ui_MainWindow], None], btn_name: str):
-    try:
-        if ui.checkBox_1.isChecked():
-            paste_to_edit1(ui)
-        log.info(f"\n框1内容：\n{ui.textEdit.toPlainText()}")
-        action(ui)
-        if ui.checkBox_2.isChecked():
-            copy_from_edit2(ui)
-        string2 = ui.textEdit_2.toPlainText()
-        log.info(f"\n框2内容\n{string2}")
-        if ui.checkBox_3.isChecked():
-            app_id = ini.get("translate", "app_id")
-            secret_key = ini.get("translate", "secret_key")
-            string3 = baidu_translate(
-                appid=app_id,
-                secretKey=secret_key,
-                translate_text=string2,
-            )
-            ui.textEdit_3.setText(string3)
-            log.info(f"\n框3内容\n{string3}")
-        assert isinstance(ui.pushButton_action_last, QPushButton)
-        ui.pushButton_action_last.clicked.disconnect()
-        ui.pushButton_action_last.setText(btn_name)
-        fun_arg(ui, ui.pushButton_action_last, action, )
-    except Exception as e:
-        log.debug(e)
+    if ui.checkBox_1.isChecked():
+        paste_to_edit1(ui)
+    log.info(f"\n框1内容：\n{ui.textEdit.toPlainText()}")
+    action(ui)
+    if ui.checkBox_2.isChecked():
+        copy_from_edit2(ui)
+    string2 = ui.textEdit_2.toPlainText()
+    log.info(f"\n框2内容\n{string2}")
+    if ui.checkBox_3.isChecked():
+        app_id = ini.get("translate", "app_id")
+        secret_key = ini.get("translate", "secret_key")
+        string3 = baidu_translate(
+            appid=app_id,
+            secretKey=secret_key,
+            translate_text=string2,
+        )
+        ui.textEdit_3.setText(string3)
+        log.info(f"\n框3内容\n{string3}")
+    assert isinstance(ui.pushButton_action_last, QPushButton)
+    ui.pushButton_action_last.clicked.disconnect()
+    ui.pushButton_action_last.setText(btn_name)
+    fun_arg(ui, ui.pushButton_action_last, action, )
 
 
 def fun_arg(ui, btn, action, ):
-    btn.clicked.connect(partial(action_wrap_type, ui, action, btn.text()))
+    try:
+        btn.clicked.connect(partial(action_wrap_type, ui, action, btn.text()))
+    except Exception as e:
+        log.debug(e)
 
 
 class MainUI(main1.Ui_MainWindow):
@@ -134,7 +134,7 @@ class MainUI(main1.Ui_MainWindow):
         self.checkBox_2.setChecked(checked2)
         self.checkBox_3.setChecked(checked3)
 
-        fun_arg(self, self.pushButton_remember_setting, action_remember_setting)
+        self.pushButton_remember_setting.clicked.connect(partial(action_remember_setting, self))
 
 
 class MyMainForm(QMainWindow):
