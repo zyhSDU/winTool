@@ -15,7 +15,7 @@ from helper.TranslateHelper import baidu_translate
 from ui import main1
 from ui.main1 import Ui_MainWindow
 
-file_name = "app1_logs/log"
+file_name = "./../app1_logs/log"
 create_dir_of_path(file_name)
 app1_handler = logging_handlers.TimedRotatingFileHandler(file_name, when='D', encoding="utf-8")
 log = get_logger2(handlers=[app1_handler])
