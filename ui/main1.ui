@@ -37,8 +37,8 @@
    <widget class="QPushButton" name="pushButton_action1">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>120</y>
+      <x>760</x>
+      <y>110</y>
       <width>181</width>
       <height>28</height>
      </rect>
@@ -76,8 +76,8 @@
    <widget class="QPushButton" name="pushButton_action2">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>150</y>
+      <x>760</x>
+      <y>140</y>
       <width>181</width>
       <height>28</height>
      </rect>
@@ -90,7 +90,7 @@
     <property name="geometry">
      <rect>
       <x>570</x>
-      <y>180</y>
+      <y>140</y>
       <width>181</width>
       <height>28</height>
      </rect>
@@ -103,7 +103,7 @@
     <property name="geometry">
      <rect>
       <x>570</x>
-      <y>210</y>
+      <y>170</y>
       <width>181</width>
       <height>28</height>
      </rect>
@@ -243,7 +243,7 @@
     <property name="geometry">
      <rect>
       <x>570</x>
-      <y>240</y>
+      <y>110</y>
       <width>181</width>
       <height>28</height>
      </rect>
@@ -289,6 +289,32 @@
     </property>
     <property name="text">
      <string>复制</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_action6">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>200</y>
+      <width>181</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>去除连续空格</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_remember_setting">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>30</y>
+      <width>111</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>记住这些选项</string>
     </property>
    </widget>
   </widget>

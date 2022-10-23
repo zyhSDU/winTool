@@ -18,6 +18,7 @@ file_name = "app1_logs/log"
 create_dir_of_path(file_name)
 app1_handler = logging_handlers.TimedRotatingFileHandler(file_name, when='D', encoding="utf-8")
 log = get_logger2(handlers=[app1_handler])
+ini = IniConfig("app1.ini")
 
 
 def paste_to_edit1(ui: main1.Ui_MainWindow):
@@ -64,6 +65,19 @@ def action5(ui: main1.Ui_MainWindow):
     ui.textEdit_2.setText(string)
 
 
+def action6(ui: main1.Ui_MainWindow):
+    string = ui.textEdit.toPlainText()
+    string = RegularExpressionHelper.emerge_blank(string)
+    ui.textEdit_2.setText(string)
+
+
+def action_remember_setting(ui: main1.Ui_MainWindow):
+    ini.set("checked", "checked1", ui.checkBox_1.isChecked().__int__())
+    ini.set("checked", "checked2", ui.checkBox_2.isChecked().__int__())
+    ini.set("checked", "checked3", ui.checkBox_3.isChecked().__int__())
+    ini.write_back_to_read_file()
+
+
 def action_wrap_type(ui: main1.Ui_MainWindow, action: Callable[[Ui_MainWindow], None], btn_name: str):
     try:
         if ui.checkBox_1.isChecked():
@@ -75,12 +89,11 @@ def action_wrap_type(ui: main1.Ui_MainWindow, action: Callable[[Ui_MainWindow], 
         string2 = ui.textEdit_2.toPlainText()
         log.info(f"\n框2内容\n{string2}")
         if ui.checkBox_3.isChecked():
-            ini = IniConfig("app1.ini")
-            appid = ini.get("translate", "appid")
-            secretKey = ini.get("translate", "secretKey")
+            app_id = ini.get("translate", "app_id")
+            secret_key = ini.get("translate", "secret_key")
             string3 = baidu_translate(
-                appid=appid,
-                secretKey=secretKey,
+                appid=app_id,
+                secretKey=secret_key,
                 translate_text=string2,
             )
             ui.textEdit_3.setText(string3)
@@ -109,13 +122,19 @@ class MainUI(main1.Ui_MainWindow):
         fun_arg(self, self.pushButton_action3, action3)
         fun_arg(self, self.pushButton_action4, action4)
         fun_arg(self, self.pushButton_action5, action5)
+        fun_arg(self, self.pushButton_action6, action6)
 
         self.pushButton_action_last.setText(self.pushButton_action1.text())
         fun_arg(self, self.pushButton_action_last, action1)
 
-        self.checkBox_1.setChecked(True)
-        self.checkBox_2.setChecked(True)
-        self.checkBox_3.setChecked(True)
+        checked1 = int(ini.get("checked", "checked1"))
+        checked2 = int(ini.get("checked", "checked2"))
+        checked3 = int(ini.get("checked", "checked3"))
+        self.checkBox_1.setChecked(checked1)
+        self.checkBox_2.setChecked(checked2)
+        self.checkBox_3.setChecked(checked3)
+
+        fun_arg(self, self.pushButton_remember_setting, action_remember_setting)
 
 
 class MyMainForm(QMainWindow):
