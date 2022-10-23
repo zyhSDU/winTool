@@ -9,7 +9,7 @@ def change_ascii_to_blank(string: str) -> str:
     return string.strip()
 
 
-def split_to_per_line_one_cite(string: str, log: Logger) -> str:
+def split_to_per_line_one_cite_type1(string: str, log: Logger) -> str:
     string = change_ascii_to_blank(string)
     re_list = []
     ss = string.split("\n")
@@ -23,6 +23,18 @@ def split_to_per_line_one_cite(string: str, log: Logger) -> str:
         if s.startswith(f"{i_begin} ") or s.startswith(f"[{i_begin}] ") or s.startswith(f"{i_begin}. "):
             re_list.append("\n")
             i_begin += 1
+        re_list.append(s)
+        re_list.append(" ")
+    return "".join(re_list).strip()
+
+
+def split_to_per_line_one_cite_type3(string: str, log: Logger) -> str:
+    string = change_ascii_to_blank(string)
+    re_list = []
+    ss = string.split("\n")
+    for s in ss:
+        if s.startswith(f"["):
+            re_list.append("\n")
         re_list.append(s)
         re_list.append(" ")
     return "".join(re_list).strip()

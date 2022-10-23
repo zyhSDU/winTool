@@ -59,9 +59,15 @@ def action3(ui: main1.Ui_MainWindow):
 
 
 # 参考文献.多行格式化(4)
-def action4(ui: main1.Ui_MainWindow):
+def action_cite_1(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
-    string = RegularExpressionHelper.split_to_per_line_one_cite(string, log)
+    string = RegularExpressionHelper.split_to_per_line_one_cite_type1(string, log)
+    ui.textEdit_2.setText(string)
+
+
+def action_cite_3(ui: main1.Ui_MainWindow):
+    string = ui.textEdit.toPlainText()
+    string = RegularExpressionHelper.split_to_per_line_one_cite_type3(string, log)
     ui.textEdit_2.setText(string)
 
 
@@ -127,15 +133,10 @@ class MainUI(main1.Ui_MainWindow):
         fun_arg(self, self.pushButton_action_1, action1)
         fun_arg(self, self.pushButton_action_2, action2)
         fun_arg(self, self.pushButton_action_3, action3)
-        fun_arg(self, self.pushButton_action_4, action4)
         fun_arg(self, self.pushButton_action_5, action5)
         fun_arg(self, self.pushButton_action_6, action6)
-        # self.pushButton_action_1.setShortcut(QKeySequence('Alt + 1'))
-        # self.pushButton_action_2.setShortcut(QKeySequence('Alt + 2'))
-        # self.pushButton_action_3.setShortcut(QKeySequence('Alt + 3'))
-        # self.pushButton_action_4.setShortcut(QKeySequence('Alt + 4'))
-        # self.pushButton_action_5.setShortcut(QKeySequence('Alt + 5'))
-        # self.pushButton_action_6.setShortcut(QKeySequence('Alt + 6'))
+        fun_arg(self, self.pushButton_action_cite_1, action_cite_1)
+        fun_arg(self, self.pushButton_action_cite_3, action_cite_3)
 
         self.pushButton_action_last.setText(self.pushButton_action_1.text())
         fun_arg(self, self.pushButton_action_last, action1)

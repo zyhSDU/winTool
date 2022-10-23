@@ -19,7 +19,7 @@
      <rect>
       <x>40</x>
       <y>10</y>
-      <width>471</width>
+      <width>341</width>
       <height>221</height>
      </rect>
     </property>
@@ -29,28 +29,28 @@
      <rect>
       <x>40</x>
       <y>240</y>
-      <width>471</width>
+      <width>341</width>
       <height>221</height>
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_action_4">
+   <widget class="QPushButton" name="pushButton_action_cite_1">
     <property name="geometry">
      <rect>
-      <x>760</x>
+      <x>640</x>
       <y>110</y>
-      <width>181</width>
+      <width>391</width>
       <height>28</height>
      </rect>
     </property>
     <property name="text">
-     <string>参考文献.多行格式化(4)</string>
+     <string>参考文献.多行格式化，“数字”开头或“[数字]”开头</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_left1">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>390</x>
       <y>10</y>
       <width>41</width>
       <height>221</height>
@@ -63,7 +63,7 @@
    <widget class="QPushButton" name="pushButton_left2">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>390</x>
       <y>240</y>
       <width>41</width>
       <height>221</height>
@@ -76,46 +76,46 @@
    <widget class="QPushButton" name="pushButton_action_5">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>140</y>
-      <width>181</width>
+      <x>640</x>
+      <y>170</y>
+      <width>191</width>
       <height>28</height>
      </rect>
     </property>
     <property name="text">
-     <string>摘要.按分号分隔(5)</string>
+     <string>摘要.按分号分隔</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_action_1">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>440</x>
       <y>110</y>
-      <width>181</width>
+      <width>191</width>
       <height>28</height>
      </rect>
     </property>
     <property name="text">
-     <string>合并行(1)</string>
+     <string>合并行</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_action_2">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>440</x>
       <y>140</y>
-      <width>181</width>
+      <width>191</width>
       <height>28</height>
      </rect>
     </property>
     <property name="text">
-     <string>合并行后按点分隔(2)</string>
+     <string>合并行后按点分隔</string>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkBox_2">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>440</x>
       <y>30</y>
       <width>231</width>
       <height>31</height>
@@ -128,7 +128,7 @@
    <widget class="QCheckBox" name="checkBox_1">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>440</x>
       <y>10</y>
       <width>211</width>
       <height>31</height>
@@ -141,7 +141,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>440</x>
       <y>220</y>
       <width>171</width>
       <height>21</height>
@@ -154,10 +154,10 @@
    <widget class="QPushButton" name="pushButton_action_last">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>440</x>
       <y>240</y>
-      <width>181</width>
-      <height>28</height>
+      <width>591</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -167,14 +167,14 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>440</x>
       <y>70</y>
-      <width>501</width>
+      <width>641</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>===================================================================</string>
+     <string>======================================================================================================================================</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -221,7 +221,7 @@
      <rect>
       <x>40</x>
       <y>490</y>
-      <width>471</width>
+      <width>341</width>
       <height>221</height>
      </rect>
     </property>
@@ -229,7 +229,7 @@
    <widget class="QCheckBox" name="checkBox_3">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>440</x>
       <y>50</y>
       <width>151</width>
       <height>31</height>
@@ -242,33 +242,33 @@
    <widget class="QPushButton" name="pushButton_action_6">
     <property name="geometry">
      <rect>
-      <x>760</x>
+      <x>840</x>
       <y>170</y>
-      <width>181</width>
+      <width>191</width>
       <height>28</height>
      </rect>
     </property>
     <property name="text">
-     <string>无处理(6)</string>
+     <string>无处理</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>440</x>
       <y>200</y>
-      <width>501</width>
+      <width>641</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>===================================================================</string>
+     <string>======================================================================================================================================</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_8">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>440</x>
       <y>90</y>
       <width>171</width>
       <height>21</height>
@@ -281,7 +281,7 @@
    <widget class="QPushButton" name="pushButton_left3">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>390</x>
       <y>490</y>
       <width>41</width>
       <height>221</height>
@@ -294,27 +294,40 @@
    <widget class="QPushButton" name="pushButton_action_3">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>440</x>
       <y>170</y>
-      <width>181</width>
+      <width>191</width>
       <height>28</height>
      </rect>
     </property>
     <property name="text">
-     <string>去除连续空格(3)</string>
+     <string>去除连续空格</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_remember_setting">
     <property name="geometry">
      <rect>
-      <x>820</x>
-      <y>30</y>
-      <width>111</width>
-      <height>28</height>
+      <x>660</x>
+      <y>17</y>
+      <width>371</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
      <string>记住这些选项</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_action_cite_3">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>140</y>
+      <width>391</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>参考文献.多行格式化，“[”开头</string>
     </property>
    </widget>
   </widget>
