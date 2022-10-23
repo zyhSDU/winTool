@@ -3,6 +3,7 @@ from functools import partial
 from logging import handlers as logging_handlers
 from typing import Callable
 
+from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
 
 from helper import ClipboardHelper
@@ -36,38 +37,44 @@ def copy_from_edit3(ui: main1.Ui_MainWindow):
     ClipboardHelper.copy_text(text1)
 
 
+# 合并行(1)
 def action1(ui: main1.Ui_MainWindow):
-    string = ui.textEdit.toPlainText()
-    string = RegularExpressionHelper.split_to_per_line_one_cite(string, log)
-    ui.textEdit_2.setText(string)
-
-
-def action2(ui: main1.Ui_MainWindow):
-    string = ui.textEdit.toPlainText()
-    string = RegularExpressionHelper.split_by_sep(string)
-    ui.textEdit_2.setText(string)
-
-
-def action3(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
     string = RegularExpressionHelper.emerge_lines(string)
     ui.textEdit_2.setText(string)
 
 
-def action4(ui: main1.Ui_MainWindow):
+# 合并行后按点分隔(2)
+def action2(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
     string = RegularExpressionHelper.emerge_lines_and_split_by_dot(string)
     ui.textEdit_2.setText(string)
 
 
-def action5(ui: main1.Ui_MainWindow):
+# 去除连续空格(3)
+def action3(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
+    string = RegularExpressionHelper.emerge_blank(string)
     ui.textEdit_2.setText(string)
 
 
+# 参考文献.多行格式化(4)
+def action4(ui: main1.Ui_MainWindow):
+    string = ui.textEdit.toPlainText()
+    string = RegularExpressionHelper.split_to_per_line_one_cite(string, log)
+    ui.textEdit_2.setText(string)
+
+
+# 摘要.按分号分隔(5)
+def action5(ui: main1.Ui_MainWindow):
+    string = ui.textEdit.toPlainText()
+    string = RegularExpressionHelper.split_by_sep(string)
+    ui.textEdit_2.setText(string)
+
+
+# 无处理(6)
 def action6(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
-    string = RegularExpressionHelper.emerge_blank(string)
     ui.textEdit_2.setText(string)
 
 
@@ -117,14 +124,20 @@ class MainUI(main1.Ui_MainWindow):
         self.pushButton_left2.clicked.connect(partial(copy_from_edit2, self))
         self.pushButton_left3.clicked.connect(partial(copy_from_edit3, self))
 
-        fun_arg(self, self.pushButton_action1, action1)
-        fun_arg(self, self.pushButton_action2, action2)
-        fun_arg(self, self.pushButton_action3, action3)
-        fun_arg(self, self.pushButton_action4, action4)
-        fun_arg(self, self.pushButton_action5, action5)
-        fun_arg(self, self.pushButton_action6, action6)
+        fun_arg(self, self.pushButton_action_1, action1)
+        fun_arg(self, self.pushButton_action_2, action2)
+        fun_arg(self, self.pushButton_action_3, action3)
+        fun_arg(self, self.pushButton_action_4, action4)
+        fun_arg(self, self.pushButton_action_5, action5)
+        fun_arg(self, self.pushButton_action_6, action6)
+        # self.pushButton_action_1.setShortcut(QKeySequence('Alt + 1'))
+        # self.pushButton_action_2.setShortcut(QKeySequence('Alt + 2'))
+        # self.pushButton_action_3.setShortcut(QKeySequence('Alt + 3'))
+        # self.pushButton_action_4.setShortcut(QKeySequence('Alt + 4'))
+        # self.pushButton_action_5.setShortcut(QKeySequence('Alt + 5'))
+        # self.pushButton_action_6.setShortcut(QKeySequence('Alt + 6'))
 
-        self.pushButton_action_last.setText(self.pushButton_action1.text())
+        self.pushButton_action_last.setText(self.pushButton_action_1.text())
         fun_arg(self, self.pushButton_action_last, action1)
 
         checked1 = int(ini.get("checked", "checked1"))
