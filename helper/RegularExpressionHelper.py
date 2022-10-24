@@ -44,7 +44,7 @@ def split_by_sep(string: str, ) -> str:
     string = change_chinese_punctuation_to_english(string)
     re_list = []
     ss = []
-    seps = [";", ","]
+    seps = [";", ",", "·"]
     for i in seps:
         if string.__contains__(i):
             ss = string.split(i)
@@ -78,7 +78,7 @@ def emerge_lines(string: str) -> str:
 
 def emerge_lines_and_split_by_dot(string: str) -> str:
     string = emerge_lines(string)
-    seps = [".", "。", "！", "!"]
+    seps = [".", "。", "！", "!", "?", "？", ]
     for i in seps:
         string = string.replace(i, f"{i}\n")
     re_list = []
