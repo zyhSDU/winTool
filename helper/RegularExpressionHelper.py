@@ -62,6 +62,11 @@ def emerge_blank(string: str) -> str:
     return string.strip()
 
 
+def remove_empty(string: str) -> str:
+    string = string.replace(" ", "")
+    return string
+
+
 def emerge_lines(string: str) -> str:
     string = string.replace("\n", " ").strip()
     string = emerge_blank(string)

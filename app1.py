@@ -84,6 +84,13 @@ def action6(ui: main1.Ui_MainWindow):
     ui.textEdit_2.setText(string)
 
 
+# 去除空格
+def action_remove_empty(ui: main1.Ui_MainWindow):
+    string = ui.textEdit.toPlainText()
+    string = RegularExpressionHelper.remove_empty(string)
+    ui.textEdit_2.setText(string)
+
+
 def action_remember_setting(ui: main1.Ui_MainWindow):
     ini.set("checked", "checked1", ui.checkBox_1.isChecked().__int__().__str__())
     ini.set("checked", "checked2", ui.checkBox_2.isChecked().__int__().__str__())
@@ -135,6 +142,7 @@ class MainUI(main1.Ui_MainWindow):
         fun_arg(self, self.pushButton_action_3, action3)
         fun_arg(self, self.pushButton_action_5, action5)
         fun_arg(self, self.pushButton_action_6, action6)
+        fun_arg(self, self.pushButton_action_remove_empty, action_remove_empty)
         fun_arg(self, self.pushButton_action_cite_1, action_cite_1)
         fun_arg(self, self.pushButton_action_cite_3, action_cite_3)
 
