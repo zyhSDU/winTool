@@ -8,6 +8,9 @@
 
 app使用说明在app/app1备忘文档.docx
 
+# app使用说明，备忘说明
+文档链接: https://www.mubucm.com/doc/qeOOnBsEgW 密码: ytgn
+
 # 源码网址
 https://gitee.com/zyh1114130407/win-tool-unit
 
