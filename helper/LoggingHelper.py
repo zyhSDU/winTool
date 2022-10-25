@@ -33,7 +33,7 @@ def get_logger2(
     if handlers is None:
         file_name = 'logs/log'
         create_dir_of_path(file_name)
-        handlers = [logging_handlers.TimedRotatingFileHandler(file_name, when='D', encoding="utf-8")]
+        handlers = [logging_handlers.TimedRotatingFileHandler(file_name, when='MIDNIGHT', encoding="utf-8")]
     logger: Logger = logging.getLogger()
     logger.setLevel(level)
     for i in handlers:

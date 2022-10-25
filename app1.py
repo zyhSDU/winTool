@@ -3,7 +3,6 @@ from functools import partial
 from logging import handlers as logging_handlers
 from typing import Callable
 
-from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
 
 from helper import ClipboardHelper
@@ -17,8 +16,7 @@ from ui.main1 import Ui_MainWindow
 
 file_name = "./../app1_logs/log"
 create_dir_of_path(file_name)
-app1_handler = logging_handlers.TimedRotatingFileHandler(file_name, when='D', encoding="utf-8")
-app1_handler.suffix = "%Y%m%d-%H%M.log"
+app1_handler = logging_handlers.TimedRotatingFileHandler(file_name, when="MIDNIGHT", encoding="utf-8")
 log = get_logger2(handlers=[app1_handler])
 ini = IniConfig("app1.ini")
 
