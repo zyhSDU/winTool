@@ -18,6 +18,7 @@ from ui.main1 import Ui_MainWindow
 file_name = "./../app1_logs/log"
 create_dir_of_path(file_name)
 app1_handler = logging_handlers.TimedRotatingFileHandler(file_name, when='D', encoding="utf-8")
+app1_handler.suffix = "%Y%m%d-%H%M.log"
 log = get_logger2(handlers=[app1_handler])
 ini = IniConfig("app1.ini")
 
@@ -37,28 +38,28 @@ def copy_from_edit3(ui: main1.Ui_MainWindow):
     ClipboardHelper.copy_text(text1)
 
 
-# 合并行(1)
+# 合并行
 def action1(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
     string = RegularExpressionHelper.emerge_lines(string)
     ui.textEdit_2.setText(string)
 
 
-# 合并行后按点分隔(2)
+# 合并行后按点分隔
 def action2(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
     string = RegularExpressionHelper.emerge_lines_and_split_by_dot(string)
     ui.textEdit_2.setText(string)
 
 
-# 去除连续空格(3)
+# 去除连续空格
 def action3(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
     string = RegularExpressionHelper.emerge_blank(string)
     ui.textEdit_2.setText(string)
 
 
-# 参考文献.多行格式化(4)
+# 参考文献.多行格式化
 def action_cite_1(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
     string = RegularExpressionHelper.split_to_per_line_one_cite_type1(string, log)
@@ -71,14 +72,14 @@ def action_cite_3(ui: main1.Ui_MainWindow):
     ui.textEdit_2.setText(string)
 
 
-# 摘要.按分号分隔(5)
+# 摘要.按分号分隔
 def action5(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
     string = RegularExpressionHelper.split_by_sep(string)
     ui.textEdit_2.setText(string)
 
 
-# 无处理(6)
+# 无处理
 def action6(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
     ui.textEdit_2.setText(string)
@@ -88,6 +89,13 @@ def action6(ui: main1.Ui_MainWindow):
 def action_remove_empty(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
     string = RegularExpressionHelper.remove_empty(string)
+    ui.textEdit_2.setText(string)
+
+
+def action_replace(ui: main1.Ui_MainWindow):
+    log.info(f"action_replace")
+    string = ui.textEdit.toPlainText()
+    string = string.replace(ui.lineEdit_replace_text_1.text(), ui.lineEdit_replace_text_2.text())
     ui.textEdit_2.setText(string)
 
 
@@ -145,6 +153,7 @@ class MainUI(main1.Ui_MainWindow):
         fun_arg(self, self.pushButton_action_remove_empty, action_remove_empty)
         fun_arg(self, self.pushButton_action_cite_1, action_cite_1)
         fun_arg(self, self.pushButton_action_cite_3, action_cite_3)
+        fun_arg(self, self.pushButton_replace, action_replace)
 
         self.pushButton_action_last.setText(self.pushButton_action_1.text())
         fun_arg(self, self.pushButton_action_last, action1)

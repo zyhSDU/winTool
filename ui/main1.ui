@@ -142,7 +142,7 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>260</y>
+      <y>380</y>
       <width>171</width>
       <height>21</height>
      </rect>
@@ -155,7 +155,7 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>280</y>
+      <y>400</y>
       <width>591</width>
       <height>51</height>
      </rect>
@@ -256,7 +256,7 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>240</y>
+      <y>360</y>
       <width>641</width>
       <height>21</height>
      </rect>
@@ -343,6 +343,53 @@
      <string>去除空格</string>
     </property>
    </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>240</y>
+      <width>160</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>将</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_replace_text_1">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>替换为</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_replace_text_2">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_replace">
+       <property name="text">
+        <string>替换</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -350,7 +397,7 @@
      <x>0</x>
      <y>0</y>
      <width>1087</width>
-     <height>26</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
