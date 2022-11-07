@@ -73,6 +73,7 @@ def emerge_lines(string: str) -> str:
     # 处理来自pdf的麻烦
     string = string.replace("- ", "")
     string = string.replace("Fig. ", "Fig.")
+    string = string.replace("¬\n", "")
     return string.strip()
 
 

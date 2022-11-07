@@ -142,7 +142,7 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>380</y>
+      <y>400</y>
       <width>171</width>
       <height>21</height>
      </rect>
@@ -155,7 +155,7 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>400</y>
+      <y>420</y>
       <width>591</width>
       <height>51</height>
      </rect>
@@ -256,7 +256,7 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>360</y>
+      <y>380</y>
       <width>641</width>
       <height>21</height>
      </rect>
@@ -270,7 +270,7 @@
      <rect>
       <x>440</x>
       <y>90</y>
-      <width>171</width>
+      <width>361</width>
       <height>21</height>
      </rect>
     </property>
@@ -349,7 +349,7 @@
       <x>440</x>
       <y>240</y>
       <width>160</width>
-      <height>121</height>
+      <height>131</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -390,6 +390,58 @@
      </item>
     </layout>
    </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>309</y>
+      <width>181</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLineEdit" name="lineEdit_add_fix_text">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_add_fix_text">
+       <property name="text">
+        <string>给头尾加上，并换行</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>309</y>
+      <width>201</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QLineEdit" name="lineEdit_save_first_text">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_save_first_text">
+       <property name="text">
+        <string>保留前几位字符</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -397,7 +449,7 @@
      <x>0</x>
      <y>0</y>
      <width>1087</width>
-     <height>23</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">

@@ -1,4 +1,4 @@
-from lib import pyperclip
+import pyperclip
 
 
 def get_text() -> str:
