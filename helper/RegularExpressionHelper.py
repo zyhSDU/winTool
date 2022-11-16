@@ -91,6 +91,7 @@ def emerge_lines_and_split_by_dot(string: str) -> str:
     string = "".join(re_list)
     # 处理来自pdf的麻烦
     string = string.replace("Fig.\n", "Fig.")
+    string = string.replace("e.\ng.\n", "e.g.")
     return string.strip()
 
 
