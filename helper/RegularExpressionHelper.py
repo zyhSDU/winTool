@@ -40,27 +40,23 @@ def split_to_per_line_one_cite_type3(string: str, log: Logger) -> str:
     return "".join(re_list).strip()
 
 
-def split_by_sep(string: str, ) -> str:
-    string = change_chinese_punctuation_to_english(string)
-    return split_by_seps(string, [";", ",", "·"])
-
-
-def split_by_seps(string: str, seps: List[str]) -> str:
+def split_by_sep(string: str, sep: str) -> str:
     re_list = []
-    ss = []
-    print(seps)
-    for i in seps:
-        if i.strip() == "":
-            continue
-        if string.__contains__(i):
-            ss = string.split(i)
-            break
-    if ss.__len__() == 0:
+    if sep.strip() == "":
         return string
+    if not string.__contains__(sep):
+        return string
+    ss = string.split(sep)
     for s in ss:
         re_list.append(s.strip())
         re_list.append("\n")
     return "".join(re_list).strip()
+
+
+def split_by_seps(string: str, seps: List[str]) -> str:
+    for sep in seps:
+        string = split_by_sep(string, sep)
+    return string
 
 
 def emerge_blank(string: str) -> str:

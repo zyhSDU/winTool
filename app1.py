@@ -73,7 +73,8 @@ def action_cite_3(ui: main1.Ui_MainWindow):
 # 摘要.按分号分隔
 def action5(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
-    string = RegularExpressionHelper.split_by_sep(string)
+    string = RegularExpressionHelper.change_chinese_punctuation_to_english(string)
+    string = RegularExpressionHelper.split_by_seps(string,[";", ",", "·"])
     ui.textEdit_2.setText(string)
 
 
