@@ -7,38 +7,38 @@ import urllib
 import urllib.parse
 
 
-def baidu_translate(appid, secretKey, translate_text, flag=0):
-    '''
+def baidu_translate(app_id, secret_key, translate_text, flag=0):
+    """
     :param translate_text: 待翻译的句子，len(q)<2000
     :param flag: 1:原句子翻译成英文；0:原句子翻译成中文
     :return: 返回翻译结果。
     For example:
     q=我今天好开心啊！
     result = {'from': 'zh', 'to': 'en', 'trans_result': [{'src': '我今天好开心啊！', 'dst': "I'm so happy today!"}]}
-    '''
+    """
 
-    httpClient = None
-    myurl = '/api/trans/vip/translate'  # 通用翻译API HTTP地址
-    fromLang = 'auto'  # 原文语种
+    http_client = None
+    my_url = '/api/trans/vip/translate'  # 通用翻译API HTTP地址
+    from_lang = 'auto'  # 原文语种
 
     if flag:
-        toLang = 'en'  # 译文语种
+        to_lang = 'en'  # 译文语种
     else:
-        toLang = 'zh'  # 译文语种
+        to_lang = 'zh'  # 译文语种
 
     salt = random.randint(3276, 65536)
 
-    sign = appid + translate_text + str(salt) + secretKey
+    sign = app_id + translate_text + str(salt) + secret_key
     sign = hashlib.md5(sign.encode()).hexdigest()
-    myurl = myurl + '?appid=' + appid + '&q=' + urllib.parse.quote(translate_text) + '&from=' + fromLang + \
-            '&to=' + toLang + '&salt=' + str(salt) + '&sign=' + sign
+    my_url = my_url + '?appid=' + app_id + '&q=' + urllib.parse.quote(translate_text) + '&from=' + from_lang + \
+            '&to=' + to_lang + '&salt=' + str(salt) + '&sign=' + sign
 
     # 建立会话，返回结果
     try:
-        httpClient = http.client.HTTPConnection('api.fanyi.baidu.com')
-        httpClient.request('GET', myurl)
+        http_client = http.client.HTTPConnection('api.fanyi.baidu.com')
+        http_client.request('GET', my_url)
         # response是HTTPResponse对象
-        response = httpClient.getresponse()
+        response = http_client.getresponse()
         result_all = response.read().decode("utf-8")
         result = json.loads(result_all)
 
@@ -48,8 +48,8 @@ def baidu_translate(appid, secretKey, translate_text, flag=0):
     except Exception as e:
         print(e)
     finally:
-        if httpClient:
-            httpClient.close()
+        if http_client:
+            http_client.close()
 
 
 if __name__ == '__main__':
@@ -61,8 +61,8 @@ if __name__ == '__main__':
     flag=0 输入的句子翻译成中文
     '''
     result = baidu_translate(
-        appid="20221023001410022",
-        secretKey="zsXssn8xsnvdBBD0gZF7",
+        app_id="20221023001410022",
+        secret_key="zsXssn8xsnvdBBD0gZF7",
         translate_text=q,
         flag=1,
     )  # 百度翻译

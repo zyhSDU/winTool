@@ -131,8 +131,8 @@ def action_wrap_type(ui: main1.Ui_MainWindow, action: Callable[[Ui_MainWindow], 
         app_id = ini.get("translate", "app_id")
         secret_key = ini.get("translate", "secret_key")
         string3 = baidu_translate(
-            appid=app_id,
-            secretKey=secret_key,
+            app_id=app_id,
+            secret_key=secret_key,
             translate_text=string2,
         )
         ui.textEdit_3.setText(string3)
