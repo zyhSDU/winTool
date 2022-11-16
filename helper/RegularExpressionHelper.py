@@ -1,8 +1,6 @@
 from logging import Logger
 from typing import List, Callable
 
-from helper.ChineseEnglishHelper import change_chinese_punctuation_to_english
-
 
 def change_ascii_to_blank(string: str) -> str:
     string = string.replace(chr(2), " ")
@@ -96,6 +94,7 @@ def emerge_lines_and_split_by_dot(string: str) -> str:
     # 处理来自pdf的麻烦
     string = string.replace("Fig.\n", "Fig.")
     string = string.replace("e.\ng.\n", "e.g.")
+    string = string.replace("i.\ne.\n", "e.g.")
     return string.strip()
 
 
