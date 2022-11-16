@@ -111,6 +111,13 @@ def action_remove_first_text(ui: main1.Ui_MainWindow):
     ui.textEdit_2.setText(string)
 
 
+def action_split_by_these(ui: main1.Ui_MainWindow):
+    string = ui.textEdit.toPlainText()
+    seps = ui.lineEdit_split_by_these.text().strip().split(" ")
+    string = RegularExpressionHelper.split_by_seps(string, seps)
+    ui.textEdit_2.setText(string)
+
+
 def action_remember_setting(ui: main1.Ui_MainWindow):
     ini.set("checked", "checked1", ui.checkBox_1.isChecked().__int__().__str__())
     ini.set("checked", "checked2", ui.checkBox_2.isChecked().__int__().__str__())
@@ -168,6 +175,7 @@ class MainUI(main1.Ui_MainWindow):
         fun_arg(self, self.pushButton_replace, action_replace)
         fun_arg(self, self.pushButton_add_fix_text, action_add_fix)
         fun_arg(self, self.pushButton_save_first_text, action_remove_first_text)
+        fun_arg(self, self.pushButton_split_by_these, action_split_by_these)
 
         self.pushButton_action_last.setText(self.pushButton_action_1.text())
         fun_arg(self, self.pushButton_action_last, action1)

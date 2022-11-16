@@ -42,13 +42,21 @@ def split_to_per_line_one_cite_type3(string: str, log: Logger) -> str:
 
 def split_by_sep(string: str, ) -> str:
     string = change_chinese_punctuation_to_english(string)
+    return split_by_seps(string, [";", ",", "·"])
+
+
+def split_by_seps(string: str, seps: List[str]) -> str:
     re_list = []
     ss = []
-    seps = [";", ",", "·"]
+    print(seps)
     for i in seps:
+        if i.strip() == "":
+            continue
         if string.__contains__(i):
             ss = string.split(i)
             break
+    if ss.__len__() == 0:
+        return string
     for s in ss:
         re_list.append(s.strip())
         re_list.append("\n")
