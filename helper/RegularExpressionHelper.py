@@ -74,7 +74,7 @@ def emerge_lines(string: str) -> str:
     string = emerge_blank(string)
     # 处理来自pdf的麻烦
     string = string.replace("- ", "")
-    string = string.replace("Fig. ", "Fig.")
+    # string = string.replace("Fig. ", "Fig.")
     string = string.replace("¬ ", "")
     return string.strip()
 
@@ -95,6 +95,8 @@ def emerge_lines_and_split_by_dot(string: str) -> str:
     string = string.replace("Fig.\n", "Fig.")
     string = string.replace("e.\ng.\n", "e.g.")
     string = string.replace("i.\ne.\n", "e.g.")
+    string = string.replace("resp.\n", "resp.")
+    string = string.replace("etc.\n", "etc.")
     return string.strip()
 
 
