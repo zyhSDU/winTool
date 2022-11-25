@@ -6,7 +6,9 @@ from typing import Callable
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
 
 from helper import ClipboardHelper
+from helper import FileHelper
 from helper import RegularExpressionHelper
+from helper.ChineseEnglishHelper import change_chinese_punctuation_to_english
 from helper.ConfigHelper import IniConfig
 from helper.FileHelper import create_dir_of_path
 from helper.LoggingHelper import get_logger2
@@ -73,8 +75,8 @@ def action_cite_3(ui: main1.Ui_MainWindow):
 # 摘要.按分号分隔
 def action5(ui: main1.Ui_MainWindow):
     string = ui.textEdit.toPlainText()
-    string = RegularExpressionHelper.change_chinese_punctuation_to_english(string)
-    string = RegularExpressionHelper.split_by_seps(string,[";", ",", "·"])
+    string = change_chinese_punctuation_to_english(string)
+    string = RegularExpressionHelper.split_by_seps(string, [";", ",", "·"])
     ui.textEdit_2.setText(string)
 
 
@@ -117,6 +119,17 @@ def action_split_by_these(ui: main1.Ui_MainWindow):
     seps = ui.lineEdit_split_by_these.text().strip().split(" ")
     string = RegularExpressionHelper.split_by_seps(string, seps)
     ui.textEdit_2.setText(string)
+
+
+def action_replace_file_name(ui: main1.Ui_MainWindow):
+    try:
+        file_name = ui.lineEdit_replace_file_name_file_name.text()
+        old_str = ui.lineEdit_replace_file_name_old_str.text()
+        new_str = ui.lineEdit_replace_file_name_new_str.text()
+        max_deep = int(ui.lineEdit_replace_file_name_max_deep.text().strip())
+        FileHelper.re_name_of_files(file_name, old_str, new_str, max_deep, 0, log)
+    except Exception as e:
+        log.debug(e)
 
 
 def action_remember_setting(ui: main1.Ui_MainWindow):
@@ -189,6 +202,7 @@ class MainUI(main1.Ui_MainWindow):
         self.checkBox_3.setChecked(checked3)
 
         self.pushButton_remember_setting.clicked.connect(partial(action_remember_setting, self))
+        self.pushButton_replace_file_name.clicked.connect(partial(action_replace_file_name, self))
 
 
 class MyMainForm(QMainWindow):
