@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1087</width>
+    <width>1130</width>
     <height>801</height>
    </rect>
   </property>
@@ -349,7 +349,7 @@
       <x>440</x>
       <y>240</y>
       <width>160</width>
-      <height>131</height>
+      <height>143</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -448,7 +448,7 @@
       <x>800</x>
       <y>240</y>
       <width>220</width>
-      <height>73</height>
+      <height>86</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -480,8 +480,8 @@
      <rect>
       <x>440</x>
       <y>380</y>
-      <width>601</width>
-      <height>162</height>
+      <width>581</width>
+      <height>190</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -496,6 +496,12 @@
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
         <widget class="QLabel" name="label_14">
+         <property name="minimumSize">
+          <size>
+           <width>160</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="text">
           <string>输入文件名：</string>
          </property>
@@ -514,6 +520,12 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QLabel" name="label_12">
+         <property name="minimumSize">
+          <size>
+           <width>160</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="text">
           <string>输入旧字串：</string>
          </property>
@@ -532,6 +544,12 @@
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
         <widget class="QLabel" name="label_15">
+         <property name="minimumSize">
+          <size>
+           <width>160</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="text">
           <string>输入新字串：</string>
          </property>
@@ -550,6 +568,12 @@
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
         <widget class="QLabel" name="label_16">
+         <property name="minimumSize">
+          <size>
+           <width>160</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="text">
           <string>输入替换层数：</string>
          </property>
@@ -579,7 +603,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1087</width>
+     <width>1130</width>
      <height>23</height>
     </rect>
    </property>
