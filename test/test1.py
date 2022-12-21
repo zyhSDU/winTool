@@ -89,7 +89,7 @@ def get_controller():
 
 
 def main():
-    QtAppHelper.app_go(get_controller)
+    QtAppHelper.app_go_1(get_controller)
 
 
 if __name__ == '__main__':

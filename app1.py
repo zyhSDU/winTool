@@ -1,6 +1,6 @@
 from functools import partial
 from logging import handlers as logging_handlers
-from typing import Callable
+from typing import Callable, Union
 
 from PyQt5.QtWidgets import QMainWindow, QPushButton
 
@@ -12,7 +12,6 @@ from helper.ChineseEnglishHelper import change_chinese_punctuation_to_english
 from helper.ConfigHelper import IniConfig
 from helper.FileHelper import create_dir_of_path
 from helper.LoggingHelper import get_logger2
-from helper.QtAppHelper import QtController
 from helper.TranslateHelper import baidu_translate
 from ui import main1
 from ui.main1 import Ui_MainWindow
@@ -206,15 +205,9 @@ class MainUI(main1.Ui_MainWindow):
         self.pushButton_replace_file_name.clicked.connect(partial(action_replace_file_name, self))
 
 
-def get_main_window() -> QMainWindow:
-    main_window = QMainWindow()
-    MainUI(main_window)
-    return main_window
-
-
-def get_controller():
-    return QtController(get_main_window())
+def init_main_view(main_view: QMainWindow):
+    MainUI(main_view)
 
 
 if __name__ == '__main__':
-    QtAppHelper.app_go(get_controller)
+    QtAppHelper.app_go_2(init_main_view)
