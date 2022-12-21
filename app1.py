@@ -206,15 +206,14 @@ class MainUI(main1.Ui_MainWindow):
         self.pushButton_replace_file_name.clicked.connect(partial(action_replace_file_name, self))
 
 
-class MyMainForm(QMainWindow):
-    def __init__(self):
-        # noinspection PyArgumentList
-        super(MyMainForm, self).__init__()
-        ui = MainUI(self)
+def get_main_window() -> QMainWindow:
+    main_window = QMainWindow()
+    MainUI(main_window)
+    return main_window
 
 
 def get_controller():
-    return QtController(MyMainForm())
+    return QtController(get_main_window())
 
 
 if __name__ == '__main__':
