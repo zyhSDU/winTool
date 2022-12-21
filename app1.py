@@ -1,13 +1,12 @@
-import sys
 from functools import partial
 from logging import handlers as logging_handlers
 from typing import Callable
-from helper import QtAppHelper
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
+from PyQt5.QtWidgets import QMainWindow, QPushButton
 
 from helper import ClipboardHelper
 from helper import FileHelper
+from helper import QtAppHelper
 from helper import RegularExpressionHelper
 from helper.ChineseEnglishHelper import change_chinese_punctuation_to_english
 from helper.ConfigHelper import IniConfig
@@ -214,7 +213,7 @@ class MyMainForm(QMainWindow):
 
 
 if __name__ == '__main__':
-    app = QtAppHelper.get_app()
+    app_wrapper = QtAppHelper.get_app_wrapper()
     main_form = MyMainForm()
     main_form.show()
-    sys.exit(app.exec_())
+    app_wrapper.app_exit()

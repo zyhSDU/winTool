@@ -1,5 +1,5 @@
-import sys
 from PyQt5 import QtCore, QtWidgets
+
 from helper import QtAppHelper
 
 
@@ -87,10 +87,10 @@ class Controller:
 
 
 def main():
-    app = QtAppHelper.get_app()
+    app_wrapper = QtAppHelper.get_app_wrapper()
     controller = Controller()
     controller.show_login()
-    sys.exit(app.exec_())
+    app_wrapper.app_exit()
 
 
 if __name__ == '__main__':
