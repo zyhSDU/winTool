@@ -12,7 +12,7 @@ def get_signal(*args, **kwargs):
 
 
 class QWidgetWrapper(object):
-    def __init__(self, view: QWidget):
+    def __init__(self, view: QWidget = QWidget()):
         self.view: QWidget = view
         self.show_view_fun_decorator = FunDecorator()
 
