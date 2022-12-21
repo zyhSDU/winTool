@@ -2,6 +2,7 @@ import sys
 from functools import partial
 from logging import handlers as logging_handlers
 from typing import Callable
+from helper import QtAppHelper
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
 
@@ -213,7 +214,7 @@ class MyMainForm(QMainWindow):
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
+    app = QtAppHelper.get_app()
     main_form = MyMainForm()
     main_form.show()
     sys.exit(app.exec_())
