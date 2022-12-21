@@ -1,13 +1,15 @@
 from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QWidget
 
 from helper import QtAppHelper
+from helper.QtAppHelper import QtController
 
 
-class MainWindow(QtWidgets.QWidget):
+class MainWindow(QWidget):
     switch_window = QtCore.pyqtSignal(str)
 
     def __init__(self):
-        QtWidgets.QWidget.__init__(self)
+        QWidget.__init__(self)
         self.setWindowTitle('Main Window')
 
         layout = QtWidgets.QGridLayout()
@@ -25,10 +27,10 @@ class MainWindow(QtWidgets.QWidget):
         self.switch_window.emit(self.line_edit.text())
 
 
-class WindowTwo(QtWidgets.QWidget):
+class WindowTwo(QWidget):
 
     def __init__(self, text):
-        QtWidgets.QWidget.__init__(self)
+        QWidget.__init__(self)
         self.setWindowTitle('Window Two')
 
         layout = QtWidgets.QGridLayout()
@@ -44,11 +46,12 @@ class WindowTwo(QtWidgets.QWidget):
         self.setLayout(layout)
 
 
-class Login(QtWidgets.QWidget):
+class Login(QWidget):
     switch_window = QtCore.pyqtSignal()
 
     def __init__(self):
-        QtWidgets.QWidget.__init__(self)
+        super(Login, self).__init__()
+
         self.setWindowTitle('Login')
 
         layout = QtWidgets.QGridLayout()
@@ -64,20 +67,15 @@ class Login(QtWidgets.QWidget):
         self.switch_window.emit()
 
 
-class Controller:
-
-    def __init__(self):
-        pass
-
-    def show_login(self):
-        self.login = Login()
-        self.login.switch_window.connect(self.show_main)
-        self.login.show()
+class Controller(QtController):
+    def __init__(self, start_view):
+        super(Controller, self).__init__(start_view)
+        self.start_view.switch_window.connect(self.show_main)
 
     def show_main(self):
         self.window = MainWindow()
         self.window.switch_window.connect(self.show_window_two)
-        self.login.close()
+        self.start_view.close()
         self.window.show()
 
     def show_window_two(self, text):
@@ -86,11 +84,12 @@ class Controller:
         self.window_two.show()
 
 
+def get_controller():
+    return Controller(Login())
+
+
 def main():
-    app_wrapper = QtAppHelper.get_app_wrapper()
-    controller = Controller()
-    controller.show_login()
-    app_wrapper.app_exit()
+    QtAppHelper.app_go(get_controller)
 
 
 if __name__ == '__main__':

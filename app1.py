@@ -12,6 +12,7 @@ from helper.ChineseEnglishHelper import change_chinese_punctuation_to_english
 from helper.ConfigHelper import IniConfig
 from helper.FileHelper import create_dir_of_path
 from helper.LoggingHelper import get_logger2
+from helper.QtAppHelper import QtController
 from helper.TranslateHelper import baidu_translate
 from ui import main1
 from ui.main1 import Ui_MainWindow
@@ -212,8 +213,9 @@ class MyMainForm(QMainWindow):
         ui = MainUI(self)
 
 
+def get_controller():
+    return QtController(MyMainForm())
+
+
 if __name__ == '__main__':
-    app_wrapper = QtAppHelper.get_app_wrapper()
-    main_form = MyMainForm()
-    main_form.show()
-    app_wrapper.app_exit()
+    QtAppHelper.app_go(get_controller)
