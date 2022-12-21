@@ -1,12 +1,12 @@
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget
 
 from helper import QtAppHelper
-from helper.QtAppHelper import QtController
+from helper.QtAppHelper import QtController, get_signal
 
 
 class MainWindow(QWidget):
-    switch_window = QtCore.pyqtSignal(str)
+    switch_window = get_signal(str)
 
     def __init__(self):
         QWidget.__init__(self)
@@ -28,7 +28,6 @@ class MainWindow(QWidget):
 
 
 class WindowTwo(QWidget):
-
     def __init__(self, text):
         QWidget.__init__(self)
         self.setWindowTitle('Window Two')
@@ -47,7 +46,7 @@ class WindowTwo(QWidget):
 
 
 class Login(QWidget):
-    switch_window = QtCore.pyqtSignal()
+    switch_window = get_signal()
 
     def __init__(self):
         super(Login, self).__init__()

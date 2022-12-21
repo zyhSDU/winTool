@@ -1,8 +1,23 @@
 import sys
 from typing import Callable
 
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
+
+from helper.DecoratorHelper import FunDecorator
+
+
+def get_signal(*args, **kwargs):
+    return QtCore.pyqtSignal(args, kwargs)
+
+
+class QWidgetWrapper(object):
+    def __init__(self, view: QWidget):
+        self.view: QWidget = view
+        self.show_view_fun_decorator = FunDecorator()
+
+    def show_view(self):
+        self.show_view_fun_decorator.fun()
 
 
 class QtController(object):
@@ -14,9 +29,9 @@ class QtController(object):
 
 
 class QApplicationWrapper(object):
-    def __init__(self, app: QApplication, controller:QtController):
+    def __init__(self, app: QApplication, controller: QtController):
         self.app = app
-        self.controller:QtController = controller
+        self.controller: QtController = controller
 
     def app_exit(self):
         sys.exit(self.app.exec_())
