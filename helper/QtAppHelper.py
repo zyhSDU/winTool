@@ -28,6 +28,14 @@ def get_widget():
     return QtWidgets.QWidget()
 
 
+def get_main_view(
+        init_main_view: Callable[[QMainWindow], None],
+):
+    main_window = QMainWindow()
+    init_main_view(main_window)
+    return main_window
+
+
 class QtController(object):
     def __init__(
             self,
@@ -65,18 +73,10 @@ def app_go_1(
     app_wrapper.app_go()
 
 
-def get_main_view_2(
-        init_main_view: Callable[[QMainWindow], None],
-) -> QMainWindow:
-    main_window = QMainWindow()
-    init_main_view(main_window)
-    return main_window
-
-
 def get_controller_2(
         init_main_view: Callable[[QMainWindow], None],
 ):
-    return QtController(get_main_view_2(init_main_view))
+    return QtController(get_main_view(init_main_view))
 
 
 def get_app_wrapper_2(

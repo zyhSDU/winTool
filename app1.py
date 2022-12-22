@@ -12,6 +12,7 @@ from helper.ChineseEnglishHelper import change_chinese_punctuation_to_english
 from helper.ConfigHelper import IniConfig
 from helper.FileHelper import create_dir_of_path
 from helper.LoggingHelper import get_logger2
+from helper.QtAppHelper import QtController, get_main_view
 from helper.TranslateHelper import baidu_translate
 from ui import main1
 from ui.main1 import Ui_MainWindow
@@ -205,7 +206,7 @@ class MainUI(main1.Ui_MainWindow):
         self.pushButton_replace_file_name.clicked.connect(partial(action_replace_file_name, self))
 
         def new_a_main_window():
-            self.view2 = QtAppHelper.get_main_view_2(init_main_view)
+            self.view2 = QtAppHelper.get_main_view(init_main_view)
             self.view2.show()
 
         self.action_new_a_main_window.triggered.connect(new_a_main_window)
@@ -215,5 +216,14 @@ def init_main_view(main_view: QMainWindow):
     MainUI(main_view)
 
 
+class Controller(QtController):
+    def __init__(self):
+        super(Controller, self).__init__(get_main_view(init_main_view))
+
+
+def get_controller():
+    return Controller()
+
+
 if __name__ == '__main__':
-    QtAppHelper.app_go_2(init_main_view)
+    QtAppHelper.app_go_1(get_controller)
