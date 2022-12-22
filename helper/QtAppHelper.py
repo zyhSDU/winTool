@@ -2,7 +2,7 @@ import sys
 from typing import Callable, Any
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
+from PyQt5.QtWidgets import QPushButton, QWidget, QMainWindow, QApplication
 
 from helper.CallableHelper import call_none
 
@@ -24,9 +24,16 @@ def get_layout():
     return QtWidgets.QGridLayout()
 
 
+def get_widget():
+    return QtWidgets.QWidget()
+
+
 class QtController(object):
-    def __init__(self, start_view: QMainWindow):
-        self.start_view: QMainWindow = start_view
+    def __init__(
+            self,
+            start_view: QWidget,
+    ):
+        self.start_view: QWidget = start_view
 
     def show_start_view(self):
         self.start_view.show()

@@ -16,11 +16,12 @@ class MainWindow(QWidget):
 
         layout = QtAppHelper.get_layout()
 
-        self.line_edit = QtWidgets.QLineEdit()
-        layout.addWidget(self.line_edit)
+        line_edit = QtWidgets.QLineEdit()
+        layout.addWidget(line_edit)
+        self.line_edit = line_edit
 
-        self.button = QtAppHelper.get_button('Switch Window', self.switch)
-        layout.addWidget(self.button)
+        button = QtAppHelper.get_button('Switch Window', self.switch)
+        layout.addWidget(button)
 
         self.setLayout(layout)
 
@@ -35,11 +36,11 @@ class WindowTwo(QWidget):
 
         layout = QtAppHelper.get_layout()
 
-        self.label = QtWidgets.QLabel(text)
-        layout.addWidget(self.label)
+        label = QtWidgets.QLabel(text)
+        layout.addWidget(label)
 
-        self.button = QtAppHelper.get_button('Close', self.close)
-        layout.addWidget(self.button)
+        button = QtAppHelper.get_button('Close', self.close)
+        layout.addWidget(button)
 
         self.setLayout(layout)
 
@@ -53,8 +54,8 @@ class Login(QWidget):
 
         layout = QtWidgets.QGridLayout()
 
-        self.button = QtAppHelper.get_button('Login', self.login)
-        layout.addWidget(self.button)
+        button = QtAppHelper.get_button('Login', self.login)
+        layout.addWidget(button)
 
         self.setLayout(layout)
 
@@ -63,8 +64,11 @@ class Login(QWidget):
 
 
 class Controller(QtController):
-    def __init__(self, start_view):
-        super(Controller, self).__init__(start_view)
+    def __init__(
+            self,
+    ):
+        super(Controller, self).__init__(Login())
+        assert isinstance(self.start_view, Login)
         self.start_view.switch_window.connect(self.show_main)
 
     def show_main(self):
@@ -80,7 +84,7 @@ class Controller(QtController):
 
 
 def get_controller():
-    return Controller(Login())
+    return Controller()
 
 
 def main():
