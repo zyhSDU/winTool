@@ -1,5 +1,5 @@
 import sys
-from typing import Callable
+from typing import Callable, Any
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
@@ -13,7 +13,7 @@ def get_signal(*args, **kwargs):
 
 def get_button(
         title: str,
-        connected_fun: Callable[[], None] = call_none,
+        connected_fun: Callable[[], Any] = call_none,
 ) -> QPushButton:
     b: QPushButton = QtWidgets.QPushButton(title)
     b.clicked.connect(connected_fun)

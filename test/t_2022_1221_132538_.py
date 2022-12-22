@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QWidget
 
 from helper import QtAppHelper
 from helper.QtAppHelper import QtController
-from helper.ObjectHelper import print_object
+
 
 class MainWindow(QWidget):
     switch_window = QtAppHelper.get_signal(str)
@@ -26,7 +26,6 @@ class MainWindow(QWidget):
 
     def switch(self):
         self.switch_window.emit(self.line_edit.text())
-
 
 
 class WindowTwo(QWidget):
