@@ -2,23 +2,24 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget
 
 from helper import QtAppHelper
-from helper.QtAppHelper import QtController, get_signal
+from helper.QtAppHelper import QtController
 
 
 class MainWindow(QWidget):
-    switch_window = get_signal(str)
+    switch_window = QtAppHelper.get_signal(str)
 
-    def __init__(self):
-        QWidget.__init__(self)
+    def __init__(
+            self,
+    ):
+        super(MainWindow, self).__init__()
         self.setWindowTitle('Main Window')
 
-        layout = QtWidgets.QGridLayout()
+        layout = QtAppHelper.get_layout()
 
         self.line_edit = QtWidgets.QLineEdit()
         layout.addWidget(self.line_edit)
 
-        self.button = QtWidgets.QPushButton('Switch Window')
-        self.button.clicked.connect(self.switch)
+        self.button = QtAppHelper.get_button('Switch Window', self.switch)
         layout.addWidget(self.button)
 
         self.setLayout(layout)
@@ -29,35 +30,30 @@ class MainWindow(QWidget):
 
 class WindowTwo(QWidget):
     def __init__(self, text):
-        QWidget.__init__(self)
+        super(WindowTwo, self).__init__()
         self.setWindowTitle('Window Two')
 
-        layout = QtWidgets.QGridLayout()
+        layout = QtAppHelper.get_layout()
 
         self.label = QtWidgets.QLabel(text)
         layout.addWidget(self.label)
 
-        self.button = QtWidgets.QPushButton('Close')
-        self.button.clicked.connect(self.close)
-
+        self.button = QtAppHelper.get_button('Close', self.close)
         layout.addWidget(self.button)
 
         self.setLayout(layout)
 
 
 class Login(QWidget):
-    switch_window = get_signal()
+    switch_window = QtAppHelper.get_signal()
 
     def __init__(self):
         super(Login, self).__init__()
-
         self.setWindowTitle('Login')
 
         layout = QtWidgets.QGridLayout()
 
-        self.button = QtWidgets.QPushButton('Login')
-        self.button.clicked.connect(self.login)
-
+        self.button = QtAppHelper.get_button('Login', self.login)
         layout.addWidget(self.button)
 
         self.setLayout(layout)

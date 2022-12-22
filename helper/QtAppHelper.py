@@ -2,22 +2,26 @@ import sys
 from typing import Callable
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
 
-from helper.DecoratorHelper import FunDecorator
+from helper.CallableHelper import call_none
 
 
 def get_signal(*args, **kwargs):
     return QtCore.pyqtSignal(args, kwargs)
 
 
-class QWidgetWrapper(object):
-    def __init__(self, view: QWidget = QWidget()):
-        self.view: QWidget = view
-        self.show_view_fun_decorator = FunDecorator()
+def get_button(
+        title: str,
+        connected_fun: Callable[[], None] = call_none,
+) -> QPushButton:
+    b: QPushButton = QtWidgets.QPushButton(title)
+    b.clicked.connect(connected_fun)
+    return b
 
-    def show_view(self):
-        self.show_view_fun_decorator.fun()
+
+def get_layout():
+    return QtWidgets.QGridLayout()
 
 
 class QtController(object):

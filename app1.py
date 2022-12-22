@@ -1,6 +1,6 @@
 from functools import partial
 from logging import handlers as logging_handlers
-from typing import Callable, Union
+from typing import Callable
 
 from PyQt5.QtWidgets import QMainWindow, QPushButton
 
