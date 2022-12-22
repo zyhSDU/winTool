@@ -204,6 +204,12 @@ class MainUI(main1.Ui_MainWindow):
         self.pushButton_remember_setting.clicked.connect(partial(action_remember_setting, self))
         self.pushButton_replace_file_name.clicked.connect(partial(action_replace_file_name, self))
 
+        def new_a_main_window():
+            self.view2 = QtAppHelper.get_main_view_2(init_main_view)
+            self.view2.show()
+
+        self.action_new_a_main_window.triggered.connect(new_a_main_window)
+
 
 def init_main_view(main_view: QMainWindow):
     MainUI(main_view)

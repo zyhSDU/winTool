@@ -611,10 +611,21 @@
     <property name="title">
      <string>菜单</string>
     </property>
+    <addaction name="action_new_a_main_window"/>
    </widget>
    <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="action11">
+   <property name="text">
+    <string>11</string>
+   </property>
+  </action>
+  <action name="action_new_a_main_window">
+   <property name="text">
+    <string>新开一个main</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
