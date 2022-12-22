@@ -12,7 +12,6 @@ from helper.ChineseEnglishHelper import change_chinese_punctuation_to_english
 from helper.ConfigHelper import IniConfig
 from helper.FileHelper import create_dir_of_path
 from helper.LoggingHelper import get_logger2
-from helper.QtAppHelper import QtController, get_main_view
 from helper.TranslateHelper import baidu_translate
 from ui import main1
 from ui.main1 import Ui_MainWindow
@@ -216,14 +215,5 @@ def init_main_view(main_view: QMainWindow):
     MainUI(main_view)
 
 
-class Controller(QtController):
-    def __init__(self):
-        super(Controller, self).__init__(get_main_view(init_main_view))
-
-
-def get_controller():
-    return Controller()
-
-
 if __name__ == '__main__':
-    QtAppHelper.app_go_1(get_controller)
+    QtAppHelper.app_go_2(init_main_view)
