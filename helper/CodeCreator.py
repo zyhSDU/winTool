@@ -43,6 +43,9 @@ class CodeBlock(object):
     def add_block(self, b):
         self.replace_list.append(b)
 
+    def add_line_block(self):
+        self.add_block("\n")
+
     def get_str(
             self,
     ) -> str:
@@ -68,7 +71,7 @@ class CodeBlock(object):
             self,
             text_file: TextFile = None,
     ):
-        print(self.get_str(), file=text_file)
+        print(f"{self.get_str()}", file=text_file)
 
 
 def get_c_include_block(
@@ -111,39 +114,38 @@ def get_c_method_block(
     )
 
 
-class Tests:
-    class BlockTest1:
-        @staticmethod
-        def fun1():
-            c_includes_block = CodeBlock()
-            for i in range(3):
-                c_includes_block.add_block(get_c_include_block(f"a{i}.h"))
+def test1():
+    c_includes_block = CodeBlock()
+    for i in range(3):
+        c_includes_block.add_block(get_c_include_block(f"a{i}.h"))
+    c_includes_block.add_line_block()
+    return c_includes_block
 
-            c_includes_block.print_code()
 
-    class BlockTest2:
-        @staticmethod
-        def fun1():
-            c_b = CodeBlock()
-            c_b.add_block(get_c_declare_block("XTime", "tEnd"))
-            c_b.add_block(get_c_declare_block("XTime", "tCur"))
-            c_b.add_block(get_c_declare_block("u32", "tUsed"))
-            c_b.print_code()
+def test2():
+    c_b = CodeBlock()
+    c_b.add_block(get_c_declare_block("XTime", "tEnd"))
+    c_b.add_block(get_c_declare_block("XTime", "tCur"))
+    c_b.add_block(get_c_declare_block("u32", "tUsed"))
+    c_b.add_line_block()
+    return c_b
 
-    class BlockTest3:
-        @staticmethod
-        def fun1():
-            c_b = CodeBlock()
-            c_b.add_block(get_c_define_block("input", "0"))
-            c_b.add_block(get_c_define_block("output", "1"))
-            c_b.print_code()
 
-    @staticmethod
-    def tests1():
-        Tests.BlockTest1.fun1()
-        Tests.BlockTest2.fun1()
-        Tests.BlockTest3.fun1()
+def test3():
+    c_b = CodeBlock()
+    c_b.add_block(get_c_define_block("input", "0"))
+    c_b.add_block(get_c_define_block("output", "1"))
+    c_b.add_line_block()
+    return c_b
+
+
+def tests1():
+    c_b = CodeBlock()
+    c_b.add_block(test1())
+    c_b.add_block(test2())
+    c_b.add_block(test3())
+    c_b.print_code()
 
 
 if __name__ == '__main__':
-    Tests.tests1()
+    tests1()
