@@ -10,7 +10,7 @@ def get_b(i_int: int):
 
 
 def python_b_list_block_print():
-    bs_size = 4
+    bs_size = 16
     for i in range(bs_size):
         print(f"b{i} = get_b({i})")
     bs_str = "bs = ["
@@ -26,7 +26,19 @@ b0 = get_b(0)
 b1 = get_b(1)
 b2 = get_b(2)
 b3 = get_b(3)
-bs = [b0, b1, b2, b3, ]
+b4 = get_b(4)
+b5 = get_b(5)
+b6 = get_b(6)
+b7 = get_b(7)
+b8 = get_b(8)
+b9 = get_b(9)
+b10 = get_b(10)
+b11 = get_b(11)
+b12 = get_b(12)
+b13 = get_b(13)
+b14 = get_b(14)
+b15 = get_b(15)
+bs = [b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, ]
 
 
 class CodeBlock(object):
@@ -83,6 +95,26 @@ def get_c_include_block(
     )
 
 
+def get_c_arg_block(
+        arg_type: str,
+        arg_name: str,
+):
+    return CodeBlock(
+        f"{b0} {b1}",
+        arg_type,
+        arg_name,
+    )
+
+
+def get_c_args_block(
+        *replace_list,
+):
+    return CodeBlock(
+        ", ".join(bs[:len(replace_list)]),
+        *replace_list,
+    )
+
+
 def get_c_declare_block(
         *replace_list,
 ):
@@ -108,9 +140,13 @@ def get_c_method_block(
         content_block: CodeBlock,
 ):
     return CodeBlock(
-        f"{return_type} {method_name}({args_block}){{\n"
-        f"{content_block}"
+        f"{b0} {b1}({b2}){{\n"
+        f"{b3}"
         f"}}",
+        return_type,
+        method_name,
+        args_block,
+        content_block,
     )
 
 
@@ -139,11 +175,25 @@ def test3():
     return c_b
 
 
+def test4():
+    c_b = CodeBlock()
+    c_method_block = get_c_method_block(
+        "void",
+        "delay",
+        get_c_args_block(get_c_arg_block("uint16_t", "time")),
+        CodeBlock(""),
+    )
+    c_b.add_block(c_method_block)
+    c_b.add_line_block()
+    return c_b
+
+
 def tests1():
     c_b = CodeBlock()
     c_b.add_block(test1())
     c_b.add_block(test2())
     c_b.add_block(test3())
+    c_b.add_block(test4())
     c_b.print_code()
 
 
