@@ -81,11 +81,11 @@ class CodeBlock(object):
 
 
 def get_c_include_block(
-        *replace_list,
+        lib_name: str,
 ):
     return CodeBlock(
         f"#include {b0}\n",
-        *replace_list,
+        lib_name,
     )
 
 
@@ -109,21 +109,25 @@ def get_c_args_block(
     )
 
 
-def get_c_declare_block(
-        *replace_list,
+def get_c_arg_declare_block(
+        arg_type: str,
+        arg_name: str,
 ):
     return CodeBlock(
         f"{b0} {b1};\n",
-        *replace_list,
+        arg_type,
+        arg_name,
     )
 
 
 def get_c_define_block(
-        *replace_list,
+        arg_k: str,
+        arg_v: str,
 ):
     return CodeBlock(
         f"#define {b0} {b1}\n",
-        *replace_list,
+        arg_k,
+        arg_v,
     )
 
 
@@ -154,9 +158,9 @@ def test1():
 
 def test2():
     c_b = CodeBlock()
-    c_b.add_block(get_c_declare_block("XTime", "tEnd"))
-    c_b.add_block(get_c_declare_block("XTime", "tCur"))
-    c_b.add_block(get_c_declare_block("u32", "tUsed"))
+    c_b.add_block(get_c_arg_declare_block("XTime", "tEnd"))
+    c_b.add_block(get_c_arg_declare_block("XTime", "tCur"))
+    c_b.add_block(get_c_arg_declare_block("u32", "tUsed"))
     c_b.add_line_block()
     return c_b
 
@@ -175,7 +179,11 @@ def test4():
         "void",
         "delay",
         get_c_args_block(get_c_arg_block("uint16_t", "time")),
-        CodeBlock(""),
+        CodeBlock(
+            "",
+            get_c_arg_declare_block("uint16_t", "i"),
+            get_c_arg_declare_block("uint16_t", "j"),
+        ),
     )
     c_b.add_block(c_method_block)
     c_b.add_line_block()
