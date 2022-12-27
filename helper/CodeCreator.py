@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Union, Set
 
 from helper.FileHelper import TextFile
 
@@ -41,13 +41,34 @@ b15 = get_b(15)
 bs = [b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, ]
 
 
+class CodeTemplate(object):
+    def __init__(
+            self,
+            content: str,
+            *add_tab_block_index: int,
+    ):
+        self.content: str = content
+        self.add_tab_block_index_set: Set[int] = set()
+        self.add_index(*add_tab_block_index)
+
+    def add_index(
+            self,
+            *add_tab_block_index: int,
+    ):
+        for i in add_tab_block_index:
+            self.add_tab_block_index_set.add(i)
+
+    def if_contain_i(self, index: int):
+        return int(self.add_tab_block_index_set.__contains__(index))
+
+
 class CodeBlock(object):
     def __init__(
             self,
             content: str = "",
             *replace_list,
     ):
-        self.content: str = content
+        self.code_template: CodeTemplate = CodeTemplate(content)
         self.replace_list: List[Union[str, CodeBlock]] = []
         for i in replace_list:
             self.replace_list.append(i)
@@ -58,26 +79,43 @@ class CodeBlock(object):
     def add_line_block(self):
         self.add_block("\n")
 
-    def __str__(
+    def get_str(
             self,
+            tab_num: int = 0,
+            if_father_block_add_tab: int = 0,
     ) -> str:
-        res = self.content
-        ss = []
-        for v in self.replace_list:
-            ss.append(f"{v}")
-        for i, v in enumerate(ss):
+        res = self.code_template.content
+        for i, v in enumerate(self.replace_list):
             fb = bs[i]
+            if_contain_i = self.if_contain_i(i)
+            new_tab_num = tab_num + if_contain_i
+            tab_str = "\t" * (new_tab_num * if_father_block_add_tab)
+            v_str = ""
+            if isinstance(v, str):
+                v_str = v
+            elif isinstance(v, CodeBlock):
+                v_str = v.get_str(new_tab_num, if_contain_i)
+            v_tab_str = f"{tab_str}{v_str}"
             if res.__contains__(fb):
-                res = res.replace(fb, v)
+                res = res.replace(fb, v_tab_str)
             else:
-                res += v
+                res += v_tab_str
         return res
 
     def print_code(
             self,
             text_file: TextFile = None,
     ):
-        print(f"{self}", file=text_file)
+        print(f"{self.get_str()}", file=text_file)
+
+    def add_index(
+            self,
+            *add_tab_block_index: int,
+    ):
+        self.code_template.add_index(*add_tab_block_index)
+
+    def if_contain_i(self, index: int):
+        return self.code_template.if_contain_i(index)
 
 
 def get_c_include_block(
@@ -137,7 +175,7 @@ def get_c_method_block(
         args_block: CodeBlock,
         content_block: CodeBlock,
 ):
-    return CodeBlock(
+    cb = CodeBlock(
         f"{b0} {b1}({b2}){{\n"
         f"{b3}"
         f"}}",
@@ -146,6 +184,8 @@ def get_c_method_block(
         args_block,
         content_block,
     )
+    cb.add_index(3)
+    return cb
 
 
 def test1():
