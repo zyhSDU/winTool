@@ -58,19 +58,13 @@ class CodeBlock(object):
     def add_line_block(self):
         self.add_block("\n")
 
-    def get_str(
+    def __str__(
             self,
     ) -> str:
         res = self.content
         ss = []
         for v in self.replace_list:
-            if isinstance(v, CodeBlock):
-                inner_s = v.get_str()
-            elif isinstance(v, str):
-                inner_s = v
-            else:
-                inner_s = ""
-            ss.append(inner_s)
+            ss.append(f"{v}")
         for i, v in enumerate(ss):
             fb = bs[i]
             if res.__contains__(fb):
@@ -83,7 +77,7 @@ class CodeBlock(object):
             self,
             text_file: TextFile = None,
     ):
-        print(f"{self.get_str()}", file=text_file)
+        print(f"{self}", file=text_file)
 
 
 def get_c_include_block(
