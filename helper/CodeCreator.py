@@ -95,7 +95,7 @@ class CodeBlock(object):
                 v_str = v
             elif isinstance(v, CodeBlock):
                 v_str = v.get_str(new_tab_num, if_contain_i)
-            v_tab_str = f"{tab_str}{v_str}"
+            v_tab_str = f"{tab_str}{v_str}".replace("}", "\t" * tab_num + "}")
             if res.__contains__(fb):
                 res = res.replace(fb, v_tab_str)
             else:
@@ -178,11 +178,30 @@ def get_c_method_block(
     cb = CodeBlock(
         f"{b0} {b1}({b2}){{\n"
         f"{b3}"
-        f"}}",
+        f"}}\n",
         return_type,
         method_name,
         args_block,
         content_block,
+    )
+    cb.add_index(3)
+    return cb
+
+
+def get_c_for_block_1(
+        block1: CodeBlock,
+        block2: CodeBlock,
+        block3: CodeBlock,
+        block4: CodeBlock,
+):
+    cb = CodeBlock(
+        f"for({b0}; {b1}; {b2}){{\n"
+        f"{b3}"
+        f"}}\n",
+        block1,
+        block2,
+        block3,
+        block4,
     )
     cb.add_index(3)
     return cb
@@ -223,6 +242,12 @@ def test4():
             "",
             get_c_arg_declare_block("uint16_t", "i"),
             get_c_arg_declare_block("uint16_t", "j"),
+            get_c_for_block_1(
+                CodeBlock("i = 0"),
+                CodeBlock("i < time"),
+                CodeBlock("i++"),
+                CodeBlock(),
+            )
         ),
     )
     c_b.add_block(c_method_block)
