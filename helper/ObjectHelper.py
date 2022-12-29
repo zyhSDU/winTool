@@ -1,7 +1,8 @@
 def get_object_str(self):
-    f"{type(self).__name__}("
-    f"{', '.join('%s=%s' % item for item in vars(self).items())}"
-    f")"
+    s = f"{type(self).__name__}(" \
+        f"{', '.join('%s=%s' % item for item in vars(self).items())}" \
+        f")"
+    return s
 
 
 def print_object(self, file=None):

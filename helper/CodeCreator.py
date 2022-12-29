@@ -1,6 +1,7 @@
-from typing import List, Union, Set
+from typing import List, Union
 
 from helper.FileHelper import TextFile
+from helper.ObjectHelper import Object
 
 str_b = "b"
 
@@ -41,34 +42,25 @@ b15 = get_b(15)
 bs = [b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, ]
 
 
-class CodeTemplate(object):
+class StrLine(object):
     def __init__(
             self,
-            content: str,
-            *add_tab_block_index: int,
+            _n: bool = False,
+            _t: bool = False,
+            string: str = "",
     ):
-        self.content: str = content
-        self.add_tab_block_index_set: Set[int] = set()
-        self.add_index(*add_tab_block_index)
-
-    def add_index(
-            self,
-            *add_tab_block_index: int,
-    ):
-        for i in add_tab_block_index:
-            self.add_tab_block_index_set.add(i)
-
-    def if_contain_i(self, index: int):
-        return int(self.add_tab_block_index_set.__contains__(index))
+        self._n: bool = _n
+        self._t: bool = _t
+        self.string: str = string
 
 
-class CodeBlock(object):
+class CodeBlock(Object):
     def __init__(
             self,
             content: str = "",
             *replace_list,
     ):
-        self.code_template: CodeTemplate = CodeTemplate(content)
+        self.content: str = content
         self.replace_list: List[Union[str, CodeBlock]] = []
         for i in replace_list:
             self.replace_list.append(i)
@@ -82,24 +74,25 @@ class CodeBlock(object):
     def get_str(
             self,
             tab_num: int = 0,
-            if_father_block_add_tab: int = 0,
     ) -> str:
-        res = self.code_template.content
+        now_tab_str = "\t" * tab_num
+        if self.content == "":
+            res = ""
+            for i, v in enumerate(self.replace_list):
+                res += f"{bs[i]}"
+        else:
+            res = self.content
+        res = res.replace(f"\n", f"\n{now_tab_str}")
         for i, v in enumerate(self.replace_list):
-            fb = bs[i]
             if_contain_i = self.if_contain_i(i)
-            new_tab_num = tab_num + if_contain_i
-            tab_str = "\t" * (new_tab_num * if_father_block_add_tab)
+            fb = bs[i]
             v_str = ""
             if isinstance(v, str):
-                v_str = v
+                v_str += v.replace(f"\n", f"\n{now_tab_str}")
             elif isinstance(v, CodeBlock):
-                v_str = v.get_str(new_tab_num, if_contain_i)
-            v_tab_str = f"{tab_str}{v_str}".replace("}", "\t" * tab_num + "}")
+                v_str += v.get_str(tab_num + if_contain_i)
             if res.__contains__(fb):
-                res = res.replace(fb, v_tab_str)
-            else:
-                res += v_tab_str
+                res = res.replace(fb, f"{v_str}")
         return res
 
     def print_code(
@@ -108,21 +101,15 @@ class CodeBlock(object):
     ):
         print(f"{self.get_str()}", file=text_file)
 
-    def add_index(
-            self,
-            *add_tab_block_index: int,
-    ):
-        self.code_template.add_index(*add_tab_block_index)
-
     def if_contain_i(self, index: int):
-        return self.code_template.if_contain_i(index)
+        return int(self.content.__contains__(f"\t{bs[index]}"))
 
 
 def get_c_include_block(
         lib_name: str,
 ):
     return CodeBlock(
-        f"#include {b0}\n",
+        f"\n#include {b0}",
         lib_name,
     )
 
@@ -152,7 +139,7 @@ def get_c_arg_declare_block(
         arg_name: str,
 ):
     return CodeBlock(
-        f"{b0} {b1};\n",
+        f"\n{b0} {b1};",
         arg_type,
         arg_name,
     )
@@ -163,7 +150,7 @@ def get_c_define_block(
         arg_v: str,
 ):
     return CodeBlock(
-        f"#define {b0} {b1}\n",
+        f"\n#define {b0} {b1}",
         arg_k,
         arg_v,
     )
@@ -175,36 +162,32 @@ def get_c_method_block(
         args_block: CodeBlock,
         content_block: CodeBlock,
 ):
-    cb = CodeBlock(
-        f"{b0} {b1}({b2}){{\n"
-        f"{b3}"
-        f"}}\n",
+    return CodeBlock(
+        f"\n{b0} {b1}({b2}){{"
+        f"\t{b3}"
+        f"\n}}",
         return_type,
         method_name,
         args_block,
-        content_block,
+        CodeBlock("", content_block),
     )
-    cb.add_index(3)
-    return cb
 
 
 def get_c_for_block_1(
+        block0: CodeBlock,
         block1: CodeBlock,
         block2: CodeBlock,
         block3: CodeBlock,
-        block4: CodeBlock,
 ):
-    cb = CodeBlock(
-        f"for({b0}; {b1}; {b2}){{\n"
-        f"{b3}"
-        f"}}\n",
+    return CodeBlock(
+        f"\nfor({b0}; {b1}; {b2}){{"
+        f"\t{b3}"
+        f"\n}}",
+        block0,
         block1,
         block2,
-        block3,
-        block4,
+        CodeBlock("", block3),
     )
-    cb.add_index(3)
-    return cb
 
 
 def test1():
@@ -237,7 +220,9 @@ def test4():
     c_method_block = get_c_method_block(
         "void",
         "delay",
-        get_c_args_block(get_c_arg_block("uint16_t", "time")),
+        get_c_args_block(
+            get_c_arg_block("uint16_t", "time"),
+        ),
         CodeBlock(
             "",
             get_c_arg_declare_block("uint16_t", "i"),
@@ -246,8 +231,14 @@ def test4():
                 CodeBlock("i = 0"),
                 CodeBlock("i < time"),
                 CodeBlock("i++"),
-                CodeBlock(),
-            )
+                get_c_for_block_1(
+                    CodeBlock("j = 0"),
+                    CodeBlock("i < 100"),
+                    CodeBlock("j++"),
+                    CodeBlock("", "\n1"),
+                ),
+            ),
+            get_c_arg_declare_block("uint16_t", "time2"),
         ),
     )
     c_b.add_block(c_method_block)
