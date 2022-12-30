@@ -208,6 +208,15 @@ def get_c_method_block(
     )
 
 
+def get_c_return_block(
+        arg: Union[str, CodeBlock],
+):
+    return CodeBlock(
+        f"\nreturn {b0};",
+        arg,
+    )
+
+
 def get_c_arg_add_add_block(
         arg: str,
 ):
@@ -312,7 +321,7 @@ def test1():
             method_name,
             arg_type_void,
             "\nXTime_GetTime(&tEnd);",
-            "\nreturn ((tEnd) * 1000) / (COUNTS_PER_SECOND);"
+            get_c_return_block("((tEnd) * 1000) / (COUNTS_PER_SECOND)"),
         )
         return cb
 
