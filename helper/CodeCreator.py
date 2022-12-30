@@ -105,6 +105,50 @@ class CodeBlock(Object):
         return int(self.content.__contains__(f"\t{bs[index]}"))
 
 
+def get_args_block(
+        *replace_list,
+):
+    return CodeBlock(
+        ", ".join(bs[:len(replace_list)]),
+        *replace_list,
+    )
+
+
+def get_assign_block(
+        k: Union[str, CodeBlock],
+        v: Union[str, CodeBlock],
+):
+    return CodeBlock(
+        f"{b0} = {b1}",
+        k,
+        v,
+    )
+
+
+def get_bool_block(
+        k: Union[str, CodeBlock],
+        e: Union[str, CodeBlock],
+        v: Union[str, CodeBlock],
+):
+    return CodeBlock(
+        f"{b0} {b1} {b2}",
+        k,
+        e,
+        v,
+    )
+
+
+def get_bool_le_block(
+        k: Union[str, CodeBlock],
+        v: Union[str, CodeBlock],
+):
+    return CodeBlock(
+        f"{b0} < {b1}",
+        k,
+        v,
+    )
+
+
 def get_c_include_block(
         lib_name: str,
 ):
@@ -116,7 +160,7 @@ def get_c_include_block(
 
 def get_c_arg_block(
         arg_type: str,
-        arg_name: str,
+        arg_name: Union[str, CodeBlock],
 ):
     return CodeBlock(
         f"{b0} {b1}",
@@ -125,18 +169,9 @@ def get_c_arg_block(
     )
 
 
-def get_c_args_block(
-        *replace_list,
-):
-    return CodeBlock(
-        ", ".join(bs[:len(replace_list)]),
-        *replace_list,
-    )
-
-
 def get_c_arg_declare_block(
         arg_type: str,
-        arg_name: str,
+        arg_name: Union[str, CodeBlock],
 ):
     return CodeBlock(
         f"\n{b0} {b1};",
@@ -159,8 +194,8 @@ def get_c_define_block(
 def get_c_method_block(
         return_type: str,
         method_name: str,
-        args_block: CodeBlock,
-        content_block: CodeBlock,
+        args_block: Union[str, CodeBlock],
+        *replace_list,
 ):
     return CodeBlock(
         f"\n{b0} {b1}({b2}){{"
@@ -169,7 +204,16 @@ def get_c_method_block(
         return_type,
         method_name,
         args_block,
-        CodeBlock("", content_block),
+        CodeBlock("", *replace_list),
+    )
+
+
+def get_c_arg_add_add_block(
+        arg: str,
+):
+    return CodeBlock(
+        f"{b0}++",
+        arg,
     )
 
 
@@ -190,70 +234,96 @@ def get_c_for_block_1(
     )
 
 
+def get_c_for_block_1_1(
+        arg_i: str,
+        i_min: Union[str, int],
+        i_max: Union[str, int],
+        block3: CodeBlock,
+):
+    return get_c_for_block_1(
+        get_assign_block(arg_i, f"{i_min}"),
+        get_bool_le_block(arg_i, f"{i_max}"),
+        get_c_arg_add_add_block(arg_i),
+        block3,
+    )
+
+
 def test1():
-    c_includes_block = CodeBlock()
-    for i in range(3):
-        c_includes_block.add_block(get_c_include_block(f"a{i}.h"))
-    c_includes_block.add_line_block()
-    return c_includes_block
+    def test1():
+        c_includes_block = CodeBlock()
+        for i in range(3):
+            c_includes_block.add_block(get_c_include_block(f"a{i}.h"))
+        c_includes_block.add_line_block()
+        return c_includes_block
 
+    def test2():
+        c_b = CodeBlock()
+        c_b.add_block(get_c_arg_declare_block("XTime", "tEnd"))
+        c_b.add_block(get_c_arg_declare_block("XTime", "tCur"))
+        c_b.add_block(get_c_arg_declare_block("u32", "tUsed"))
+        c_b.add_line_block()
+        return c_b
 
-def test2():
-    c_b = CodeBlock()
-    c_b.add_block(get_c_arg_declare_block("XTime", "tEnd"))
-    c_b.add_block(get_c_arg_declare_block("XTime", "tCur"))
-    c_b.add_block(get_c_arg_declare_block("u32", "tUsed"))
-    c_b.add_line_block()
-    return c_b
+    def test3():
+        c_b = CodeBlock()
+        c_b.add_block(get_c_define_block("input", "0"))
+        c_b.add_block(get_c_define_block("output", "1"))
+        c_b.add_line_block()
+        return c_b
 
-
-def test3():
-    c_b = CodeBlock()
-    c_b.add_block(get_c_define_block("input", "0"))
-    c_b.add_block(get_c_define_block("output", "1"))
-    c_b.add_line_block()
-    return c_b
-
-
-def test4():
-    c_b = CodeBlock()
-    c_method_block = get_c_method_block(
-        "void",
-        "delay",
-        get_c_args_block(
-            get_c_arg_block("uint16_t", "time"),
-        ),
-        CodeBlock(
-            "",
-            get_c_arg_declare_block("uint16_t", "i"),
-            get_c_arg_declare_block("uint16_t", "j"),
-            get_c_for_block_1(
-                CodeBlock("i = 0"),
-                CodeBlock("i < time"),
-                CodeBlock("i++"),
-                get_c_for_block_1(
-                    CodeBlock("j = 0"),
-                    CodeBlock("i < 100"),
-                    CodeBlock("j++"),
-                    CodeBlock("", "\n1"),
+    def test4():
+        arg_type_int = "uint16_t"
+        arg_time = "time"
+        arg_i = "i"
+        arg_j = "j"
+        c_b = CodeBlock()
+        c_method_block = get_c_method_block(
+            "void",
+            "delay",
+            get_args_block(
+                get_c_arg_block(arg_type_int, arg_time),
+            ),
+            CodeBlock(
+                "",
+                get_c_arg_declare_block(arg_type_int, get_args_block(arg_i, arg_j)),
+                get_c_for_block_1_1(
+                    arg_i,
+                    0,
+                    arg_time,
+                    get_c_for_block_1_1(
+                        arg_j,
+                        0,
+                        100,
+                        CodeBlock(""),
+                    ),
                 ),
             ),
-            get_c_arg_declare_block("uint16_t", "time2"),
-        ),
-    )
-    c_b.add_block(c_method_block)
-    c_b.add_line_block()
-    return c_b
+        )
+        c_b.add_block(c_method_block)
+        c_b.add_line_block()
+        return c_b
 
+    def test5():
+        arg_type_int = "unsigned int"
+        method_name = "systemMs"
+        arg_type_void = "void"
+        cb = get_c_method_block(
+            arg_type_int,
+            method_name,
+            arg_type_void,
+            "\nXTime_GetTime(&tEnd);",
+            "\nreturn ((tEnd) * 1000) / (COUNTS_PER_SECOND);"
+        )
+        return cb
 
-def tests1():
-    c_b = CodeBlock()
-    c_b.add_block(test1())
-    c_b.add_block(test2())
-    c_b.add_block(test3())
-    c_b.add_block(test4())
-    c_b.print_code()
+    cb = CodeBlock()
+    cb.add_block(test1())
+    cb.add_block(test2())
+    cb.add_block(test3())
+    cb.add_block(test4())
+    cb.add_block(test5())
+    cb.print_code()
 
 
 if __name__ == '__main__':
-    tests1()
+    test1()
