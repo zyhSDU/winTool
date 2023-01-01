@@ -257,7 +257,7 @@ def get_c_for_block_1_1(
     )
 
 
-def test1():
+def c_test1():
     def test1():
         c_includes_block = CodeBlock()
         for i in range(3):
@@ -335,4 +335,4 @@ def test1():
 
 
 if __name__ == '__main__':
-    test1()
+    c_test1()
