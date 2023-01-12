@@ -121,6 +121,19 @@ def action_split_by_these(ui: main1.Ui_MainWindow):
     ui.textEdit_2.setText(string)
 
 
+def action_update_state_file(ui: main1.Ui_MainWindow):
+    string = ui.textEdit.toPlainText()
+    string = string.replace("#include <memory_resource>\n", "")
+    string = string.replace(", std::pmr::memory_resource* allocator = std::pmr::get_default_resource()", "")
+    string = string.replace(", std::pmr::memory_resource* allocator", "")
+    string = string.replace(", allocator", "")
+    string = string.replace(", event_queue_int(allocator)", "")
+    string = string.replace(", event_queue_ext(allocator)", "")
+    string = string.replace("std::pmr::deque<event>", "std::deque<event>")
+
+    ui.textEdit_2.setText(string)
+
+
 def action_replace_file_name(ui: main1.Ui_MainWindow):
     try:
         file_name = ui.lineEdit_replace_file_name_file_name.text()
@@ -190,6 +203,7 @@ class MainUI(main1.Ui_MainWindow):
         fun_arg(self, self.pushButton_add_fix_text, action_add_fix)
         fun_arg(self, self.pushButton_save_first_text, action_remove_first_text)
         fun_arg(self, self.pushButton_split_by_these, action_split_by_these)
+        fun_arg(self, self.pushButton_action_update_state_file, action_update_state_file)
 
         self.pushButton_action_last.setText(self.pushButton_action_1.text())
         fun_arg(self, self.pushButton_action_last, action1)
