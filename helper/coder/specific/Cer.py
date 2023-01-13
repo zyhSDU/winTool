@@ -1,152 +1,8 @@
-from typing import List, Union
+from typing import Union
 
-from helper.FileHelper import TextFile
-from helper.ObjectHelper import Object
-
-str_b = "b"
-
-
-def get_b(i_int: int):
-    return f"__{str_b}{i_int}__"
-
-
-def python_b_list_block_print():
-    bs_size = 16
-    for i in range(bs_size):
-        print(f"b{i} = get_b({i})")
-    bs_str = "bs = ["
-    for i in range(bs_size):
-        bs_str += f"b{i}, "
-    bs_str += "]"
-    print(bs_str)
-
-
-# python_b_list_block_print()
-
-b0 = get_b(0)
-b1 = get_b(1)
-b2 = get_b(2)
-b3 = get_b(3)
-b4 = get_b(4)
-b5 = get_b(5)
-b6 = get_b(6)
-b7 = get_b(7)
-b8 = get_b(8)
-b9 = get_b(9)
-b10 = get_b(10)
-b11 = get_b(11)
-b12 = get_b(12)
-b13 = get_b(13)
-b14 = get_b(14)
-b15 = get_b(15)
-bs = [b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, ]
-
-
-class StrLine(object):
-    def __init__(
-            self,
-            _n: bool = False,
-            _t: bool = False,
-            string: str = "",
-    ):
-        self._n: bool = _n
-        self._t: bool = _t
-        self.string: str = string
-
-
-class CodeBlock(Object):
-    def __init__(
-            self,
-            content: str = "",
-            *replace_list,
-    ):
-        self.content: str = content
-        self.replace_list: List[Union[str, CodeBlock]] = []
-        for i in replace_list:
-            self.replace_list.append(i)
-
-    def add_block(self, b):
-        self.replace_list.append(b)
-
-    def add_line_block(self):
-        self.add_block("\n")
-
-    def get_str(
-            self,
-            tab_num: int = 0,
-    ) -> str:
-        now_tab_str = "\t" * tab_num
-        if self.content == "":
-            res = ""
-            for i, v in enumerate(self.replace_list):
-                res += f"{bs[i]}"
-        else:
-            res = self.content
-        res = res.replace(f"\n", f"\n{now_tab_str}")
-        for i, v in enumerate(self.replace_list):
-            if_contain_i = self.if_contain_i(i)
-            fb = bs[i]
-            v_str = ""
-            if isinstance(v, str):
-                v_str += v.replace(f"\n", f"\n{now_tab_str}")
-            elif isinstance(v, CodeBlock):
-                v_str += v.get_str(tab_num + if_contain_i)
-            if res.__contains__(fb):
-                res = res.replace(fb, f"{v_str}")
-        return res
-
-    def print_code(
-            self,
-            text_file: TextFile = None,
-    ):
-        print(f"{self.get_str()}", file=text_file)
-
-    def if_contain_i(self, index: int):
-        return int(self.content.__contains__(f"\t{bs[index]}"))
-
-
-def get_args_block(
-        *replace_list,
-):
-    return CodeBlock(
-        ", ".join(bs[:len(replace_list)]),
-        *replace_list,
-    )
-
-
-def get_assign_block(
-        k: Union[str, CodeBlock],
-        v: Union[str, CodeBlock],
-):
-    return CodeBlock(
-        f"{b0} = {b1}",
-        k,
-        v,
-    )
-
-
-def get_bool_block(
-        k: Union[str, CodeBlock],
-        e: Union[str, CodeBlock],
-        v: Union[str, CodeBlock],
-):
-    return CodeBlock(
-        f"{b0} {b1} {b2}",
-        k,
-        e,
-        v,
-    )
-
-
-def get_bool_le_block(
-        k: Union[str, CodeBlock],
-        v: Union[str, CodeBlock],
-):
-    return CodeBlock(
-        f"{b0} < {b1}",
-        k,
-        v,
-    )
+from helper.coder.CodeCreator import CodeBlock, get_empty_block
+from helper.coder.Coder import get_args_block, get_assign_block, get_bool_le_block
+from helper.coder.Replacer import b0, b1, b2, b3
 
 
 def get_c_include_block(
@@ -292,8 +148,7 @@ def c_test1():
             get_args_block(
                 get_c_arg_block(arg_type_int, arg_time),
             ),
-            CodeBlock(
-                "",
+            get_empty_block(
                 get_c_arg_declare_block(arg_type_int, get_args_block(arg_i, arg_j)),
                 get_c_for_block_1_1(
                     arg_i,
@@ -303,7 +158,7 @@ def c_test1():
                         arg_j,
                         0,
                         100,
-                        CodeBlock(""),
+                        get_empty_block(),
                     ),
                 ),
             ),
