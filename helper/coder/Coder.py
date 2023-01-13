@@ -6,11 +6,19 @@ from helper.coder.Replacer import bs, b0, b1, b2
 
 def get_line_block(
         v: Union[str, CodeBlock],
+        remark: Union[str, CodeBlock] = "",
 ):
-    return CodeBlock(
-        f"{b0}\n",
-        v,
-    )
+    if remark == "":
+        return CodeBlock(
+            f"{b0}\n",
+            v,
+        )
+    else:
+        return CodeBlock(
+            f"{b0} //{b1}\n",
+            v,
+            remark,
+        )
 
 
 def get_args_block(
