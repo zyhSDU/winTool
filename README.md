@@ -19,3 +19,7 @@ https://github.com/zyhSDU/winTool
 # app网盘地址
 链接：https://pan.baidu.com/s/1PXbPWxiy4du4Az8Iv5BWGQ?pwd=0708 
 提取码：0708 
+
+#远程git地址
+gitee   https://gitee.com/zyh1114130407/win-tool-unit
+github  https://github.com/zyhSDU/winTool
