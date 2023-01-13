@@ -20,7 +20,7 @@ class StrLine(object):
 class CodeBlock(Object):
     def __init__(
             self,
-            content: str = "",
+            content: str,
             *replace_list,
     ):
         self.content: str = content

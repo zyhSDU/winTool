@@ -6,14 +6,14 @@ from helper.coder.c.Cer import get_c_include_block, get_c_arg_declare_block, get
 
 def c_test1():
     def test1():
-        c_includes_block = CodeBlock()
+        c_includes_block = get_empty_block()
         for i in range(3):
             c_includes_block.add_block(get_c_include_block(f"a{i}.h"))
         c_includes_block.add_line_block()
         return c_includes_block
 
     def test2():
-        c_b = CodeBlock()
+        c_b = get_empty_block()
         c_b.add_block(get_c_arg_declare_block("XTime", "tEnd"))
         c_b.add_block(get_c_arg_declare_block("XTime", "tCur"))
         c_b.add_block(get_c_arg_declare_block("u32", "tUsed"))
@@ -21,7 +21,7 @@ def c_test1():
         return c_b
 
     def test3():
-        c_b = CodeBlock()
+        c_b = get_empty_block()
         c_b.add_block(get_c_define_block("input", "0"))
         c_b.add_block(get_c_define_block("output", "1"))
         c_b.add_line_block()
@@ -32,7 +32,7 @@ def c_test1():
         arg_time = "time"
         arg_i = "i"
         arg_j = "j"
-        c_b = CodeBlock()
+        c_b = get_empty_block()
         c_method_block = get_c_method_block(
             "void",
             "delay",
@@ -71,7 +71,7 @@ def c_test1():
         )
         return cb
 
-    cb = CodeBlock()
+    cb = get_empty_block()
     cb.add_block(test1())
     cb.add_block(test2())
     cb.add_block(test3())

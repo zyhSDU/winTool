@@ -1,6 +1,6 @@
 from typing import Union
 
-from helper.coder.CodeCreator import CodeBlock
+from helper.coder.CodeCreator import CodeBlock, get_empty_block
 from helper.coder.Coder import get_assign_block, get_bool_le_block
 from helper.coder.Replacer import b0, b1, b2, b3
 
@@ -60,7 +60,7 @@ def get_c_method_block(
         return_type,
         method_name,
         args_block,
-        CodeBlock("", *replace_list),
+        get_empty_block(*replace_list),
     )
 
 
@@ -95,7 +95,7 @@ def get_c_for_block_1(
         block0,
         block1,
         block2,
-        CodeBlock("", block3),
+        get_empty_block(block3),
     )
 
 
