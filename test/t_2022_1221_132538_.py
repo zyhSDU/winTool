@@ -1,8 +1,8 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget
 
-from helper import QtAppHelper
-from helper.QtAppHelper import QtController
+from helper.qt import QtAppHelper
+from helper.qt.QtAppHelper import QtController
 
 
 class MainWindow(QWidget):

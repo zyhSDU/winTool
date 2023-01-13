@@ -101,5 +101,5 @@ def out_all(
 
 
 if __name__ == '__main__':
-    out_file = FileHelper.open_file("data/temp.txt", mode="w")
+    out_file = FileHelper.open_file("./data/temp.txt", mode="w")
     out_all(out_file)

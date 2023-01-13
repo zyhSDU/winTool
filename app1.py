@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QMainWindow, QPushButton
 
 from helper import ClipboardHelper
 from helper import FileHelper
-from helper import QtAppHelper
+from helper.qt import QtAppHelper
 from helper import RegularExpressionHelper
 from helper.ChineseEnglishHelper import change_chinese_punctuation_to_english
 from helper.ConfigHelper import IniConfig
