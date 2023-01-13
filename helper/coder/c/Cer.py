@@ -1,17 +1,8 @@
 from typing import Union
 
 from helper.coder.CodeCreator import CodeBlock, get_empty_block
-from helper.coder.Coder import get_remark_block, get_a_block, get_assign_block, get_bool_le_block
+from helper.coder.Coder import get_a_block, get_assign_block, get_bool_le_block
 from helper.coder.Replacer import b0, b1, b2, b3
-
-
-def get_c_remark_block(
-        *replace_list,
-):
-    return get_remark_block(
-        "// ",
-        *replace_list,
-    )
 
 
 def get_c_include_block(
