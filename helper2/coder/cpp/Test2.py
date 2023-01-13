@@ -1,6 +1,6 @@
 from helper.coder.CodeCreator import get_empty_block
 from helper.coder.Coder import get_a_block
-from helper.coder.c.Cer import get_c_include_block, get_c_arg_declare_block, get_c_define_block
+from helper.coder.c.Cer import get_c_remark_block, get_c_include_block, get_c_arg_declare_block, get_c_define_block
 
 
 def test():
@@ -42,8 +42,9 @@ def test():
     for i in defines:
         cb.add_line_block()
         for j in i:
-            cb.add_block(get_c_define_block(j[0], j[1], j[2]))
+            cb.add_block(get_c_define_block(j[0], j[1], get_c_remark_block(j[2])))
 
+    cb.add_line_block()
     cb.add_block(get_c_arg_declare_block("XGpioPs", "xGpios"))
 
     def get_set_in_pin():

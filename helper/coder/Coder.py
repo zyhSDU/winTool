@@ -8,11 +8,16 @@ def get_remark_block(
         prefix: str = "",
         *replace_list,
 ):
+    list_len = len(replace_list)
+    if list_len == 0:
+        return ""
+    if list_len == 1 and replace_list[0] == "":
+        return ""
     cb = get_empty_block()
     for i in replace_list:
         cb.add_block(CodeBlock(
             f"{prefix}{b0}",
-            i
+            i,
         ))
     return cb
 
