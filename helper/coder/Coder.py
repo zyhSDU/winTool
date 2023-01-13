@@ -4,21 +4,30 @@ from helper.coder.CodeCreator import CodeBlock
 from helper.coder.Replacer import bs, b0, b1, b2
 
 
-def get_line_block(
+def get_a_block(
         v: Union[str, CodeBlock] = "",
         remark: Union[str, CodeBlock] = "",
+        if_line=True,
+        if_remark_at_end=True,
 ):
-    if remark == "":
-        return CodeBlock(
-            f"\n{b0}",
-            v,
-        )
+    content = ""
+    if if_line:
+        content += "\n"
+    content += b0
+    content_remark = ""
+    if remark != "":
+        content_remark += f"//{b1}"
+
+    if if_remark_at_end:
+        content = content + content_remark
     else:
-        return CodeBlock(
-            f"\n{b0} //{b1}",
-            v,
-            remark,
-        )
+        content = "\n" + content_remark + content
+
+    return CodeBlock(
+        content,
+        v,
+        remark,
+    )
 
 
 def get_args_block(
@@ -45,7 +54,7 @@ def get_assign_line_block(
         k: Union[str, CodeBlock],
         v: Union[str, CodeBlock],
 ):
-    return get_line_block(get_assign_block(k, v))
+    return get_a_block(get_assign_block(k, v))
 
 
 def get_bool_block(

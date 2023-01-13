@@ -1,7 +1,7 @@
 from typing import Union
 
 from helper.coder.CodeCreator import CodeBlock, get_empty_block
-from helper.coder.Coder import get_line_block, get_assign_block, get_bool_le_block
+from helper.coder.Coder import get_a_block, get_assign_block, get_bool_le_block
 from helper.coder.Replacer import b0, b1, b2, b3
 
 
@@ -9,7 +9,7 @@ def get_c_include_block(
         lib_name: str,
         remark: Union[str, CodeBlock] = "",
 ):
-    return get_line_block(
+    return get_a_block(
         CodeBlock(
             f"#include {b0}",
             lib_name,
@@ -34,7 +34,7 @@ def get_c_arg_declare_block(
         arg_name: Union[str, CodeBlock],
         remark: Union[str, CodeBlock] = "",
 ):
-    return get_line_block(
+    return get_a_block(
         CodeBlock(
             f"{b0} {b1};",
             arg_type,
@@ -49,7 +49,7 @@ def get_c_define_block(
         arg_v: str,
         remark: Union[str, CodeBlock] = "",
 ):
-    return get_line_block(
+    return get_a_block(
         CodeBlock(
             f"#define {b0} {b1}",
             arg_k,
@@ -72,7 +72,7 @@ def get_c_return_block(
         arg: Union[str, CodeBlock],
         remark: Union[str, CodeBlock] = "",
 ):
-    return get_line_block(
+    return get_a_block(
         CodeBlock(
             f"return {b0};",
             arg,

@@ -1,7 +1,6 @@
-from helper.coder.CodeCreator import CodeBlock, get_empty_block
-from helper.coder.Coder import get_args_block
-from helper.coder.c.Cer import get_c_include_block, get_c_arg_declare_block, get_c_define_block, \
-    get_c_method_block, get_c_arg_block, get_c_for_block_1_1, get_c_return_block
+from helper.coder.CodeCreator import get_empty_block
+from helper.coder.Coder import get_a_block
+from helper.coder.c.Cer import get_c_include_block, get_c_arg_declare_block, get_c_define_block
 
 
 def test():
@@ -18,11 +17,11 @@ def test():
         includes_block.add_block(get_c_include_block(i))
     cb.add_block(includes_block)
 
-    defines_in = [
+    defines_in_pin = [
         ["EMIOKEY1", "54", "PL_KEY1"],
         ["EMIOKEY2", "55", "PL_KEY2"],
     ]
-    defines_out = [
+    defines_out_pin = [
         ["EMIO1PUL", "56", "1"],
         ["EMIO2", "57", "2"],
         ["EMIO3", "58", "3"],
@@ -30,13 +29,27 @@ def test():
         ["EMIOLED1", "60", "PL_LED1"],
         ["EMIOLED2", "61", "PL_LED2"],
     ]
-    defines = []
-    defines.extend(defines_in)
-    defines.extend(defines_out)
+    defines_io = [
+        ["input", "0", ""],
+        ["output", "1", ""],
+    ]
+    defines = [
+        defines_in_pin,
+        defines_out_pin,
+        defines_io,
+    ]
 
-    cb.add_line_block()
     for i in defines:
-        cb.add_block(get_c_define_block(i[0], i[1], i[2]))
+        cb.add_line_block()
+        for j in i:
+            cb.add_block(get_c_define_block(j[0], j[1], j[2]))
+
+    cb.add_block(get_c_arg_declare_block("XGpioPs", "xGpios"))
+
+    def get_set_in_pin():
+        return get_a_block(
+
+        )
 
     cb.print_code()
 

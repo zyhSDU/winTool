@@ -1,6 +1,6 @@
 from typing import Union
 
-from helper.coder.Coder import get_line_block, get_assign_line_block, get_args_block
+from helper.coder.Coder import get_a_block, get_assign_line_block, get_args_block
 from helper.coder.CodeCreator import CodeBlock, get_empty_block
 from helper.coder.Replacer import b0
 
@@ -36,8 +36,8 @@ def fun1_print_b_list_block(
         get_py_arr_block(args_block),
     ).print_code(if_l_strip=False, )
 
-    get_line_block().print_code()
-    get_line_block(get_empty_block(
+    get_a_block().print_code()
+    get_a_block(get_empty_block(
         "# from helper.coder.Replacer import bs, ",
         args_block,
     )).print_code(if_l_strip=False, )
