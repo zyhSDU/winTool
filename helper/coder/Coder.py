@@ -5,7 +5,7 @@ from helper.coder.Replacer import bs, b0, b1, b2
 
 
 def get_line_block(
-        v: Union[str, CodeBlock]="",
+        v: Union[str, CodeBlock] = "",
         remark: Union[str, CodeBlock] = "",
 ):
     if remark == "":
