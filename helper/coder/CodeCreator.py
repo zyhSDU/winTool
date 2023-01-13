@@ -1,8 +1,8 @@
 from typing import List, Union
 
-from helper.coder.Replacer import bs
 from helper.FileHelper import TextFile
 from helper.ObjectHelper import Object
+from helper.coder.Replacer import bs
 
 
 class StrLine(object):
@@ -37,6 +37,7 @@ class CodeBlock(Object):
     def get_str(
             self,
             tab_num: int = 0,
+            if_start: bool = True,
     ) -> str:
         now_tab_str = "\t" * tab_num
         if self.content == "":
@@ -53,9 +54,11 @@ class CodeBlock(Object):
             if isinstance(v, str):
                 v_str += v.replace(f"\n", f"\n{now_tab_str}")
             elif isinstance(v, CodeBlock):
-                v_str += v.get_str(tab_num + if_contain_i)
+                v_str += v.get_str(tab_num + if_contain_i, False)
             if res.__contains__(fb):
                 res = res.replace(fb, f"{v_str}")
+        if if_start:
+            res = res.lstrip("\n")
         return res
 
     def print_code(
