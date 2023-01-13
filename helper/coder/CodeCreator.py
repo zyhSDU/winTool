@@ -37,15 +37,10 @@ class CodeBlock(Object):
     def get_str(
             self,
             tab_num: int = 0,
-            if_start: bool = True,
+            if_l_strip: bool = True,
     ) -> str:
         now_tab_str = "\t" * tab_num
-        if self.content == "":
-            res = ""
-            for i, v in enumerate(self.replace_list):
-                res += f"{bs[i]}"
-        else:
-            res = self.content
+        res = self.content
         res = res.replace(f"\n", f"\n{now_tab_str}")
         for i, v in enumerate(self.replace_list):
             if_contain_i = self.if_contain_i(i)
@@ -56,16 +51,23 @@ class CodeBlock(Object):
             elif isinstance(v, CodeBlock):
                 v_str += v.get_str(tab_num + if_contain_i, False)
             if res.__contains__(fb):
-                res = res.replace(fb, f"{v_str}")
-        if if_start:
+                res = res.replace(fb, v_str)
+            else:
+                res += v_str
+        if if_l_strip:
             res = res.lstrip("\n")
         return res
 
     def print_code(
             self,
             text_file: TextFile = None,
+            if_l_strip: bool = True,
     ):
-        print(f"{self.get_str()}", end="", file=text_file, )
+        print(
+            f"{self.get_str(if_l_strip=if_l_strip, )}",
+            end="",
+            file=text_file,
+        )
 
     def if_contain_i(self, index: int):
         return int(self.content.__contains__(f"\t{bs[index]}"))

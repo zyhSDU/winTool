@@ -24,7 +24,7 @@ def fun1_print_b_list_block(
         )
 
     for i in range(bs_size):
-        get_assign_b_block(i).print_code()
+        get_assign_b_block(i).print_code(if_l_strip=False, )
 
     bs_str = []
     for i in range(bs_size):
@@ -34,13 +34,13 @@ def fun1_print_b_list_block(
     get_assign_line_block(
         f"bs",
         get_py_arr_block(args_block),
-    ).print_code()
+    ).print_code(if_l_strip=False, )
 
-    get_line_block("").print_code()
+    get_line_block().print_code()
     get_line_block(get_empty_block(
         "# from helper.coder.Replacer import bs, ",
         args_block,
-    )).print_code()
+    )).print_code(if_l_strip=False, )
 
 
 if __name__ == '__main__':

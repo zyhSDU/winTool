@@ -5,17 +5,17 @@ from helper.coder.Replacer import bs, b0, b1, b2
 
 
 def get_line_block(
-        v: Union[str, CodeBlock],
+        v: Union[str, CodeBlock]="",
         remark: Union[str, CodeBlock] = "",
 ):
     if remark == "":
         return CodeBlock(
-            f"{b0}\n",
+            f"\n{b0}",
             v,
         )
     else:
         return CodeBlock(
-            f"{b0} //{b1}\n",
+            f"\n{b0} //{b1}",
             v,
             remark,
         )
