@@ -1,8 +1,17 @@
 from typing import Union
 
-from helper.coder.Coder import get_a_block, get_assign_line_block, get_args_block
+from helper.coder.Coder import get_remark_block, get_a_block, get_assign_line_block, get_args_block
 from helper.coder.CodeCreator import CodeBlock, get_empty_block
 from helper.coder.Replacer import b0
+
+
+def get_py_remark_block(
+        *replace_list,
+):
+    return get_remark_block(
+        "# ",
+        *replace_list,
+    )
 
 
 def get_py_arr_block(
