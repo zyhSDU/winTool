@@ -18,6 +18,25 @@ def test():
         includes_block.add_block(get_c_include_block(i))
     cb.add_block(includes_block)
 
+    defines_in = [
+        ["EMIOKEY1", "54", "PL_KEY1"],
+        ["EMIOKEY2", "55", "PL_KEY2"],
+    ]
+    defines_out = [
+        ["EMIO1PUL", "56", "1"],
+        ["EMIO2", "57", "2"],
+        ["EMIO3", "58", "3"],
+        ["EMIO4ENA", "59", "4"],
+        ["EMIOLED1", "60", "PL_LED1"],
+        ["EMIOLED2", "61", "PL_LED2"],
+    ]
+    defines = []
+    defines.extend(defines_in)
+    defines.extend(defines_out)
+
+    cb.add_line_block()
+    for i in defines:
+        cb.add_block(get_c_define_block(i[0], i[1], i[2]))
 
     cb.print_code()
 
