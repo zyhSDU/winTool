@@ -98,6 +98,17 @@ def get_c_method_block(
     )
 
 
+def get_c_main_method_block(
+        *replace_list,
+):
+    return get_c_method_block(
+        "int",
+        "main",
+        get_empty_block(),
+        *replace_list,
+    )
+
+
 def get_c_for_block_1(
         block0: CodeBlock,
         block1: CodeBlock,

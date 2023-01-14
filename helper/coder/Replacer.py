@@ -1,26 +1,23 @@
 str_b = "b"
 
+bs = []
+for i in range(16):
+    bs.append(f"__{str_b}{i}__")
 
-def get_b(i_int: int):
-    return f"__{str_b}{i_int}__"
-
-
-b0 = get_b(0)
-b1 = get_b(1)
-b2 = get_b(2)
-b3 = get_b(3)
-b4 = get_b(4)
-b5 = get_b(5)
-b6 = get_b(6)
-b7 = get_b(7)
-b8 = get_b(8)
-b9 = get_b(9)
-b10 = get_b(10)
-b11 = get_b(11)
-b12 = get_b(12)
-b13 = get_b(13)
-b14 = get_b(14)
-b15 = get_b(15)
-bs = [b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15]
-
+b0 = bs[0]
+b1 = bs[1]
+b2 = bs[2]
+b3 = bs[3]
+b4 = bs[4]
+b5 = bs[5]
+b6 = bs[6]
+b7 = bs[7]
+b8 = bs[8]
+b9 = bs[9]
+b10 = bs[10]
+b11 = bs[11]
+b12 = bs[12]
+b13 = bs[13]
+b14 = bs[14]
+b15 = bs[15]
 # from helper.coder.Replacer import bs, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15

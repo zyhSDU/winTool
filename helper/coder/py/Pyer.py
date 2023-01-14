@@ -20,7 +20,7 @@ def fun1_print_b_list_block(
     def get_assign_b_block(index: int):
         return get_assign_line_block(
             f"b{index}",
-            f"get_b({index})"
+            f"bs[{index}]"
         )
 
     for i in range(bs_size):
@@ -31,12 +31,7 @@ def fun1_print_b_list_block(
         bs_str.append(f"b{i}")
 
     args_block = get_args_block(*bs_str)
-    get_assign_line_block(
-        f"bs",
-        get_py_arr_block(args_block),
-    ).print_code(if_l_strip=False, )
 
-    get_a_block().print_code()
     get_a_block(get_empty_block(
         "# from helper.coder.Replacer import bs, ",
         args_block,

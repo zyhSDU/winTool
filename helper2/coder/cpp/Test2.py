@@ -1,7 +1,7 @@
 from helper.coder.CodeCreator import get_empty_block
 from helper.coder.Coder import get_a_block
-from helper.coder.c.Cer import get_c_include_block, get_c_arg_declare_block, get_c_define_block
 from helper.coder.Language import language_c as language
+from helper.coder.c.Cer import get_c_include_block, get_c_arg_declare_block, get_c_define_block, get_c_main_method_block
 
 
 def test():
@@ -53,6 +53,8 @@ def test():
 
         )
 
+    main_block = get_c_main_method_block()
+    cb.add_block(main_block)
     cb.print_code()
 
 
