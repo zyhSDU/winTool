@@ -3,6 +3,9 @@ from typing import List, Union
 from helper.FileHelper import TextFile
 from helper.ObjectHelper import Object
 from helper.coder.Replacer import bs
+from helper.LoggingHelper import get_logger1
+
+log = get_logger1()
 
 
 class StrLine(object):
@@ -42,16 +45,24 @@ class CodeBlock(Object):
         now_tab_str = "\t" * tab_num
         res = self.content
         res = res.replace(f"\n", f"\n{now_tab_str}")
+        if_begin_not_contains = False
         for i, v in enumerate(self.replace_list):
-            if_contain_i = self.if_contain_i(i)
-            fb = bs[i]
+            if if_begin_not_contains:
+                if_contain_i = False
+            else:
+                if_contain_i = self.if_contain_i(i)
+                if not if_contain_i:
+                    if_begin_not_contains = True
             v_str = ""
             if isinstance(v, str):
-                v_str += v.replace(f"\n", f"\n{now_tab_str}")
+                v_str = v.replace(f"\n", f"\n{now_tab_str}")
             elif isinstance(v, CodeBlock):
-                v_str += v.get_str(tab_num + if_contain_i, False)
-            if res.__contains__(fb):
-                res = res.replace(fb, v_str)
+                v_str = v.get_str(
+                    tab_num=tab_num + if_contain_i,
+                    if_l_strip=False,
+                )
+            if if_contain_i:
+                res = res.replace(bs[i], v_str)
             else:
                 res += v_str
         if if_l_strip:
@@ -70,7 +81,7 @@ class CodeBlock(Object):
         )
 
     def if_contain_i(self, index: int):
-        return int(self.content.__contains__(f"\t{bs[index]}"))
+        return self.content.__contains__(f"{bs[index]}")
 
 
 def get_empty_block(

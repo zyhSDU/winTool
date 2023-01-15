@@ -23,8 +23,11 @@ def fun1_print_b_list_block(
             f"bs[{index}]"
         )
 
+    if_l_strip = True
     for i in range(bs_size):
-        get_assign_b_block(i).print_code(if_l_strip=False, )
+        if i > 0:
+            if_l_strip = False
+        get_assign_b_block(i).print_code(if_l_strip=if_l_strip, )
 
     bs_str = []
     for i in range(bs_size):

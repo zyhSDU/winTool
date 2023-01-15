@@ -48,7 +48,7 @@ def test():
     cb.add_line_block()
     cb.add_block(get_c_arg_declare_block("XGpioPs", "xGpios"))
 
-    def get_set_in_pin():
+    def get_set_in_pin_block():
         return get_a_block(
 
         )
